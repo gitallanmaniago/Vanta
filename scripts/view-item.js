@@ -1,23 +1,28 @@
 import { Cart } from "../data/cart.js";
 import { Products } from "../data/products.js";
+import { loadCartValue } from "./shared/header.js";
 
 const products = new Products();
-const cart = new Cart();
+const cart = new Cart('Order');
 
+let quantity = 0;
+let quantityElem;
 const url = new URL(window.location.href);
 export const itemId = url.searchParams.get('id');
 const viewedItem = products.getMatchingItem(itemId);
+document.querySelector('.title').innerText = viewedItem.name
 
 let viewHTML = '';
 const viewElem = document.querySelector('.view-main-content');
 
 function generateHTML() {
+  loadCartValue();
   viewHTML = `
     <div>
       <img class = "w-auto object-contain" src="/${viewedItem.image}" alt="">
     </div>
     <div class="text-primary flex flex-col gap-5">
-      <section class="flex justify-between items-center">
+      <section class="flex flex-wrap justify-between items-center">
         <p class="font-extrabold text-4xl">${viewedItem.name}</p>
         <p class="font-extralight text-2xl">${products.displayPrice(viewedItem.basePriceCents)} AUD</p>
       </section>
@@ -83,6 +88,7 @@ function generateHTML() {
     </div>
   `;
 
+  
   viewElem.innerHTML = viewHTML;
   initQuantityControl();
   addToCartControl();
@@ -93,7 +99,8 @@ generateHTML();
 function initQuantityControl() {
   const addElem = document.querySelector('.js-quantity-add-btn');
   const minusElem = document.querySelector('.js-quantity-minus-btn');
-  const quantityElem = document.querySelector('.js-quantity');
+  quantityElem = document.querySelector('.js-quantity');
+
 
   addElem.addEventListener('click', () => {
     quantityElem.value++;
@@ -106,8 +113,10 @@ function initQuantityControl() {
 
 function addToCartControl() {
   const addToCartElem = document.querySelector('.js-add-to-cart-btn');
-
+  
   addToCartElem.addEventListener('click', () => {
-    cart.items.push(itemId);
+    quantity = quantityElem.value;
+    cart.addToCart(itemId, quantity);
+    loadCartValue();
   });
 }
