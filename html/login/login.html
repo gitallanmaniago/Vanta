@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=GFS+Didot&display=swap" rel="stylesheet">
+  <title>Men</title>
+</head>
+<body class="flex bg-background min-h-screen flex-col">
+  <main class="grow">
+    <section class="grid grid-cols-1 lg:grid-cols-2 min-h-screen">
+      <div class="flex flex-col items-center justify-center gap-20">
+        <div class="w-[80%] lg:w-[50%] flex flex-col gap-9">
+          <a  class="text-8xl self-start font-display tracking-[-20px]" href="/index.html">VANTA</a>
+          <p class="text-lg font-extralight tracking-wide">LOG IN</p>
+          <section class="flex flex-col gap-5">
+            <div class="flex flex-col gap-6">
+              <div class="relative w-full">
+                <input type="text" id="message" placeholder=" " class="peer w-full border-b border-black pt-2 pb-2 text-sm focus:outline-none focus:border-gray-300">
+                <label for="message" class="absolute -left-1 top-4 text-gray-400 text-xs transition-all peer-placeholder-shown:top-4 peer-focus:-top-2 peer-focus:text-xs  peer-focus:text-black bg-white px-1">
+                  EMAIL
+                </label>
+              </div>
+              <div class="relative w-full">
+                <input type="text" id="message" placeholder=" " class="peer w-full border-b border-black pt-2 pb-2 text-sm focus:outline-none focus:border-gray-300">
+                <label for="message" class="absolute -left-1 top-4 text-gray-400 text-xs transition-all peer-placeholder-shown:top-4 peer-focus:-top-2 peer-focus:text-xs  peer-focus:text-black bg-white px-1">
+                  PASSWORD
+                </label>
+              </div>
+            </div>
+            <p class="text-xs font-light underline">Have you forgotten your password?</p>
+          </section>
+          <section class="grid gap-2 font-extralight text-xs">
+            <button class="border p-1.5 bg-primary text-background">LOG IN</button>
+            <button class="border p-1.5">REGISTER</button>
+          </section>
+          <footer class="bg-background text-primary font-bold text-sm">
+            <p>
+              SALE
+            </p>
+            <p class="font-light">
+              IN STORE AND ONLINE
+            </p>
+            <p class="font-light text-sm">&copy; 2025 Vanta. All rights reserved</p>
+          </footer>
+        </div>
+      </div>
+      <section class="hidden lg:flex h-screen">
+        <img class="size-full object-cover" src="/resources/product-image/T0738010104-ult.jpg" alt="">
+      </section>
+    </section>
+  </main>
+ 
+</body>
+<script type="module" src="/src/main.js"></script>
+<script type="module" src="/scripts/man/man.js"></script>
+</html>
