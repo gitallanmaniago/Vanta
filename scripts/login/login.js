@@ -1,6 +1,7 @@
 import { User } from "../../data/user/User.js";
 import dayjs from 'dayjs';
 import { logInDialog } from "../shared/modal.js";
+import { getLoggedInUser, issueToken } from "./usertoken.js";
 
 const user = new User('Users');
 
@@ -9,6 +10,7 @@ const emailElem = document.querySelector('.js-email-login');
 const passElem = document.querySelector('.js-password-login');
 
 loginElem.addEventListener('click', () => {
+  
   userInput();
 });
 
@@ -25,6 +27,9 @@ function userInput(){
     });
 
     if(result) {
+      let isLoggedIn;
+      issueToken(result.id);
+      isLoggedIn = getLoggedInUser();
       logInDialog();
     }
 
@@ -34,11 +39,13 @@ function userInput(){
 function fieldChecker(data) {
   let result = 0;
   data.forEach((field, index) => {
+    const errorElem = document.querySelector(`.js-field-${index}`);
     if(field.trim() === '') {
       result++;
-      const errorElem = document.querySelector(`.js-field-${index}`);
       errorElem.classList.remove('hidden');
-    }
+    } else
+      errorElem.classList.add('hidden');
+
   });
   
   return result === 0 ? true : false;

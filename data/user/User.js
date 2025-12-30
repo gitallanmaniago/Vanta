@@ -26,7 +26,6 @@ export class User {
     this.user.forEach((value) => {
       if(value.email === data.email) {
         matchingItem = value;
-        
       }
     });
     return matchingItem;

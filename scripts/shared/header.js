@@ -1,4 +1,5 @@
 import { Cart } from "../../data/cart.js";
+import { getLoggedInUser } from "../login/usertoken.js";
 import { renderCartDialog } from "./modal.js";
 
 const cart = new Cart('Order');
@@ -32,7 +33,10 @@ export function loadCartValue() {
     document.querySelectorAll('.js-login-header')
     .forEach((loginButton) => {
       loginButton.addEventListener('click', () => {
-        window.location.href = "/html/login/login.html";
+        if(!getLoggedInUser())
+          window.location.href = '/html/login/login.html';
+        else 
+          window.location.href = '/html/user-page/user-index.html';
       });
     });
   }

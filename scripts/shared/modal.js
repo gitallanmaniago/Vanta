@@ -164,6 +164,6 @@ export function showLoginDialog() {
   
   setTimeout(() => {
     dialogElem.close();
-    window.location.href = "/html/man.html";
+    window.location.href = `/html/user-page/user-index.html`;
   }, 2000);
 }

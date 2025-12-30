@@ -14,6 +14,7 @@ registerElem.addEventListener('click', () => {
 });
 
 function userInput(){
+ 
   const email = emailElem.value;
   const password = passElem.value;
   const name = nameElem.value;
@@ -25,6 +26,7 @@ function userInput(){
 
   if(fieldChecker(tempValue)) {
     user.insertUser({
+      id: Math.random(),
       email,
       password,
       name,
@@ -39,11 +41,12 @@ function userInput(){
 function fieldChecker(data) {
   let result = 0;
   data.forEach((field, index) => {
+    const errorElem = document.querySelector(`.js-field-${index}`);
     if(field.trim() === '') {
       result++;
-      const errorElem = document.querySelector(`.js-field-${index}`);
       errorElem.classList.remove('hidden');
-    }
+    } else
+      errorElem.classList.add('hidden');
   });
   
   return result === 0 ? true : false;
