@@ -20,37 +20,54 @@
             <p class="text-base font-extralight tracking-wide">PERSONAL DETAILS</p>
             <div class="flex flex-col gap-6">
               <div class="relative w-full">
-                <input type="text" id="username" placeholder=" " class="peer w-full border-b border-black pt-2 pb-2 text-sm focus:outline-none">
-                <label for="username" class="absolute -left-1 top-4 text-gray-400 text-xs transition-all peer-placeholder-shown:top-4 peer-focus:-top-2 peer-focus:text-xs  peer-focus:text-black bg-white px-1">
+                <input type="text" id="email" placeholder=" " class="js-email-register peer w-full border-b border-black pt-4 pb-2 text-sm focus:outline-none">
+                <label for="email" class="absolute -left-1 top-4 text-gray-400 text-xs transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-gray-400 peer-not-placeholder-shown:-top-2 peer-not-placeholder-shown:text-xs peer-focus:-top-2  peer-focus:text-black bg-white px-1">
                   EMAIL
                 </label>
+                <section class="flex gap-1 items-center mt-2 js-field-0 hidden text-xs font-light text-red-500">
+                  <img class="size-4" src="/resources/mark.png" alt="">
+                  <p class="">The email field is required.</p>
+                </section>
               </div>
               <div class="relative w-full">
-                <input type="text" id="password" placeholder=" " class="peer w-full border-b border-black pt-2 pb-2 text-sm focus:outline-none ">
-                <label for="password" class="absolute -left-1 top-4 text-gray-400 text-xs transition-all peer-placeholder-shown:top-4 peer-focus:-top-2 peer-focus:text-xs  peer-focus:text-black bg-white px-1">
+                <input type="text" id="password" placeholder=" " class="js-password-register peer w-full border-b border-black pt-4 pb-2 text-sm focus:outline-none">
+                <label for="password" class="absolute -left-1 top-4 text-gray-400 text-xs transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-gray-400 peer-not-placeholder-shown:-top-2 peer-not-placeholder-shown:text-xs peer-focus:-top-2  peer-focus:text-black bg-white px-1">
                   PASSWORD
                 </label>
+                <section class="flex gap-1 items-center mt-2 js-field-1 hidden text-xs font-light text-red-500">
+                  <img class="size-4" src="/resources/mark.png" alt="">
+                  <p class="">The password field is required.</p>
+                </section>
               </div>
               <div class="relative w-full">
-                <input type="text" id="name" placeholder=" " class="peer w-full border-b border-black pt-2 pb-2 text-sm focus:outline-none">
-                <label for="name" class="absolute -left-1 top-4 text-gray-400 text-xs transition-all peer-placeholder-shown:top-4 peer-focus:-top-2 peer-focus:text-xs  peer-focus:text-black bg-white px-1">
+                <input type="text" id="name" placeholder=" " class="js-name-register peer w-full border-b border-black pt-4 pb-2 text-sm focus:outline-none">
+                <label for="name" class="absolute -left-1 top-4 text-gray-400 text-xs transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-gray-400 peer-not-placeholder-shown:-top-2 peer-not-placeholder-shown:text-xs peer-focus:-top-2  peer-focus:text-black bg-white px-1">
                   NAME
                 </label>
+                <section class="flex gap-1 items-center mt-2 js-field-2 hidden text-xs font-light text-red-500">
+                  <img class="size-4" src="/resources/mark.png" alt="">
+                  <p class="">The name field is required.</p>
+                </section>
               </div>
               <div class="relative w-full">
-                <input type="text" id="surname" placeholder=" " class="peer w-full border-b border-black pt-2 pb-2 text-sm focus:outline-none">
-                <label for="surname" class="absolute -left-1 top-4 text-gray-400 text-xs transition-all peer-placeholder-shown:top-4 peer-focus:-top-2 peer-focus:text-xs  peer-focus:text-black bg-white px-1">
+                <input type="text" id="surname" placeholder=" " class="js-surname-register peer w-full border-b border-black pt-4 pb-2 text-sm focus:outline-none">
+                <label for="surname" class="absolute -left-1 top-4 text-gray-400 text-xs transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-gray-400 peer-not-placeholder-shown:-top-2 peer-not-placeholder-shown:text-xs peer-focus:-top-2  peer-focus:text-black bg-white px-1">
                   SURNAME
                 </label>
+                <section class="flex gap-1 items-center mt-2 js-field-3 hidden text-xs font-light text-red-500">
+                  <img class="size-4" src="/resources/mark.png" alt="">
+                  <p class="">The surname field is required.</p>
+                </section>
               </div>
             </div>
           </section>
+
           <section class="flex gap-2 items-center text-xs font-extralight">
             <input type="checkbox" name="" id="">
             <p>I accept the <a class="underline" target="_blank" href="https://static.zara.net/static/pdfs/AU/privacy-policy/privacy-policy-en_AU-20250521.pdf">privacy statement</a></p>
           </section>
           <section class="grid gap-2 font-extralight text-xs">
-            <button class="border p-2 cursor-pointer">CREATE ACCOUNT</button>
+            <button class="js-register-button border p-2 cursor-pointer">CREATE ACCOUNT</button>
           </section>
           <footer class="text-center md:text-left bg-background text-primary font-bold text-sm">
             <p class="font-light text-sm">&copy; 2025 Vanta. All rights reserved.</p>
@@ -63,4 +80,6 @@
 </body>
 <script type="module" src="/src/main.js"></script>
 <script type="module" src="/scripts/shared/header.js"></script>
+<script type="module" src="/scripts/login/register.js"></script>
+
 </html>
