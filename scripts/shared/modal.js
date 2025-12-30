@@ -131,3 +131,39 @@ export function showCartDialog() {
     dialogElem.remove();
   });
 }
+
+export function logInDialog() {
+  const dialogContElem = document.querySelector('.login-dialog-container');
+  const dialogHTML = `
+    <dialog class = "toast-login-dialog w-[90%] lg:w-[20%] rounded bg-green-100 border-none  fixed bottom-4 right-4 m-0 inset-auto ">
+      <form class = "cart-dialog-container" method="dialog">
+        <div class="dialog-main-content p-5 flex flex-col gap-5 lg:gap-7">
+          <header class="flex items-center gap-2 p-3 justify-center">
+            <img class="size-5" src="/resources/check.png" alt="">
+            <p class="text-green-700 text-xs">Login Successful!</p>
+          </header>
+        </div>
+      </form>
+    </dialog>
+  `
+  dialogContElem.innerHTML = dialogHTML;
+  showLoginDialog();
+}
+
+export function showLoginDialog() {
+  const dialogElem = document.querySelector('.toast-login-dialog');
+
+  dialogElem.showModal();
+  dialogElem.addEventListener('click', (e) => {
+    if (e.target === dialogElem) dialogElem.close();
+  });
+
+  dialogElem.addEventListener('close', () => {
+    dialogElem.remove();
+  });
+  
+  setTimeout(() => {
+    dialogElem.close();
+    window.location.href = "/html/man.html";
+  }, 2000);
+}
