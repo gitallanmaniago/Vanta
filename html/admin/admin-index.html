@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Men</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=BBH+Bartle&family=GFS+Didot&display=swap" rel="stylesheet">
+</head>
+<body class="flex bg-background min-h-screen flex-col">
+  <nav class="min-[640px]:hidden bg-background flex items-center justify-between px-5 py-2 border-b ">
+    <a href="/index.html" class="block w-15 h-11 shrink-0">
+      <img
+        src="/resources/58063b20-f758-443a-9c29-fe428a362c26.png"
+        alt=""
+        class="w-full h-full object-contain"
+      />
+    </a>
+    <div class="flex gap-5 items-center justify-center">
+      <button class="size-4 hover:opacity-40">
+        <img src="/resources/search.png" alt="">
+      </button>
+      <button class="js-login-header size-4  hover:opacity-40">
+        <img class="" src="/resources/user.png" alt="">
+      </button>
+      <button class="size-5 hover:opacity-40">
+        <img src="/resources/heart.png" alt="">
+      </button>
+      <button class="js-cart-header relative size-5 ">
+        <img class= "hover:opacity-40" src="/resources/parcel.png" alt="">
+        <p class="js-header-cart-quantity hidden relative text-xs bg-red-600 p-0.5 rounded-2xl text-white -top-7.5 left-1.5">0</p> 
+      </button>
+      <button class="js-burger-menu size-6 mt-1">
+        <img class= "hover:opacity-40" src="/resources/list.png" alt="">
+      </button>
+    </div>
+  </nav>
+
+  <div class="min-[640px]:hidden burger-menu-container fixed z-1000 bg-background hidden inset-0">
+    <div class="flex flex-col p-4 gap-5 border-b border-gray-200">
+      <button class="close-burger-menu self-end font-bold">X</button>
+    </div>
+    <section class="flex flex-col p-4">
+      <menu class="font-normal flex gap-1 flex-col">
+        <ul>INVENTORY</ul>
+        <ul>PRODUCTS</ul>
+        <ul>ATTRIBUTES</ul>
+        <ul>REPORTS</ul>
+        <ul>ACTIVITY LOG</ul>
+        <ul>USERS</ul>
+        <ul class="js-logout-user underline cursor-pointer text-base mt-auto">
+          LOGOUT
+        </ul>
+      </menu>
+    </section>
+  </div>
+ 
+  <nav class="max-[640px]:hidden bg-background flex items-center justify-between p-5 border-b mb-2">
+    <div class=" font-light text-lg">
+      <div class="text-header flex items-center gap-5">
+        <a href="/index.html">
+          <img class="h-10 object-contain" src="/resources/58063b20-f758-443a-9c29-fe428a362c26.png" alt="">
+        </a>
+        <div class="flex gap-2">
+          <a class="hover:text-black hover:font-bold" href="/html/man.html">MAN</a>
+          <a class="hover:text-black hover:font-bold" href="">WOMAN</a>
+          <a class="hover:text-black hover:font-bold" href="">KIDS</a>
+        </div>
+      </div>
+    </div>
+    <div class="flex gap-7 items-center justify-center">
+      <button class="size-5 hover:opacity-40">
+        <img src="/resources/search.png" alt="">
+      </button>
+      <button class="js-login-header size-5  hover:opacity-40">
+        <img class="" src="/resources/user.png" alt="">
+      </button>
+      <button class="size-6 hover:opacity-40">
+        <img src="/resources/heart.png" alt="">
+      </button>
+      <button class="js-cart-header relative size-6 ">
+        <img class= "hover:opacity-40" src="/resources/parcel.png" alt="">
+        <p class="js-header-cart-quantity hidden relative text-xs bg-red-600 p-0.5 rounded-2xl text-white -top-7.5 left-1.5">0</p> 
+      </button>
+      <button onclick ="document.documentElement.classList.toggle('dark')" class="size-6">
+        <img src="/resources/moon.png" alt="">
+      </button>
+    </div>
+  </nav>
+  <section class="header-cart-container">
+  </section>
+
+  <main class="main-content grow grid grid-cols-1 sm:grid-cols-[250px_1fr] gap-2 m-5">
+    <aside class="max-[640px]:hidden flex flex-col gap-2 h-full tracking-widest text-xl cursor-pointer">
+      <p class="">DASHBOARD</p>
+      <a href="/html/admin/inventory/inventory.html">INVENTORY</a>
+      <p class="">PRODUCTS</p>
+      <p class="">ATTRIBUTES</p>
+      <p class="">REPORTS</p>
+      <p class="">ACTIVITY LOG</p>
+      <p class="">USERS</p>
+      <p class="js-logout-user underline text-base mt-auto">
+        LOGOUT
+      </p>
+    </aside>
+
+    <section class="flex flex-col gap-5">
+      
+    </section>
+  </main>
+ 
+  <footer class="bg-background text-primary font-bold text-sm p-5">
+    <p>
+      SALE
+    </p>
+    <p class="font-light">
+      IN STORE AND ONLINE
+    </p>
+    <p class="font-light text-sm">&copy; 2025 Vanta. All rights reserved</p>
+  </footer>
+</body>
+<script type="module" src="/src/main.js"></script>
+<script type="module" src="/scripts/shared/header.js"></script>
+<script type="module" src="/scripts/user-page/user-index.js"></script>
+</html>

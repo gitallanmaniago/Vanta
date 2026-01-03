@@ -10,7 +10,6 @@ const emailElem = document.querySelector('.js-email-login');
 const passElem = document.querySelector('.js-password-login');
 
 loginElem.addEventListener('click', () => {
-  
   userInput();
 });
 
@@ -27,12 +26,9 @@ function userInput(){
     });
 
     if(result) {
-      let isLoggedIn;
       issueToken(result.id);
-      isLoggedIn = getLoggedInUser();
-      logInDialog();
+      logInDialog(result.isUser);
     }
-
   }
 }
 

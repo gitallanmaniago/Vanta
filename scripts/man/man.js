@@ -3,13 +3,13 @@ import { Products } from "../../data/products.js";
 import { loadCartValue } from "../shared/header.js";
 
 const cart = new Cart('Order');
-const products = new Products();
+const products = new Products('Products');
 
 function renderProduct() {
   loadCartValue();
   const containerElem = document.querySelector('.men-product-container');
   let productHTML = '';
-  products.items.forEach((item) => {
+  products.products.forEach((item) => {
     productHTML += `
       <div class=" relative group grid gap-2 text-primary text-center" >
         <div class="js-view-item  rounded-lg w-full aspect-4/4 overflow-hidden cursor-pointer" data-product-Id = ${item.id} >

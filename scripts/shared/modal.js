@@ -134,7 +134,7 @@ export function showCartDialog() {
   toCart();
 }
 
-export function logInDialog() {
+export function logInDialog(userType) {
   const dialogContElem = document.querySelector('.login-dialog-container');
   const dialogHTML = `
     <dialog class = "toast-login-dialog w-[90%] lg:w-[20%] rounded bg-green-100 border-none  fixed bottom-4 right-4 m-0 inset-auto ">
@@ -149,12 +149,11 @@ export function logInDialog() {
     </dialog>
   `
   dialogContElem.innerHTML = dialogHTML;
-  showLoginDialog();
+  showLoginDialog(userType);
 }
 
-export function showLoginDialog() {
+export function showLoginDialog(userType) {
   const dialogElem = document.querySelector('.toast-login-dialog');
-
   dialogElem.showModal();
   dialogElem.addEventListener('click', (e) => {
     if (e.target === dialogElem) dialogElem.close();
@@ -164,8 +163,12 @@ export function showLoginDialog() {
     dialogElem.remove();
   });
   
+  clearTimeout();
   setTimeout(() => {
     dialogElem.close();
-    window.location.href = `/html/user-page/user-index.html`;
+    if(userType === 1)
+      window.location.href = `/html/user-page/user-index.html`;
+    else 
+      window.location.href = `/html/admin/admin-index.html`;
   }, 2000);
 }
