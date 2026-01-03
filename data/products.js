@@ -1,6 +1,6 @@
 export class Products {
 
-  products;
+  products = [];
   #localStorageKey;
 
   constructor(localStorageKey) {
@@ -66,6 +66,22 @@ export class Products {
         tempValue = value;
       }
     });
+    return tempValue;
+  }
+
+  searchProduct(char) {
+    let tempValue = [];
+
+    if(!char)
+      return tempValue = this.products;
+
+    if(char)
+      this.products.forEach((item) => {
+        let itemName = item.name.toLowerCase();
+        if(itemName.includes(char.toLowerCase()))
+          tempValue.push(item);
+      });
+    
     return tempValue;
   }
 

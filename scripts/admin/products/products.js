@@ -3,11 +3,12 @@ import { deleteDialog, renderModalProduct, toast } from "../shared/admin-modal.j
 
 const products = new Products('Products');
 
-function renderProducts() {
+function renderProducts(data) {
   const container = document.querySelector('.products-container');
   let containerHTML = '';
+  products.loadFromLocalStorage();
 
- products.products.forEach((items) => {
+  data.forEach((items) => {
   containerHTML += 
   `
     <tr class="hover:bg-gray-50">
@@ -30,7 +31,7 @@ function renderProducts() {
  initActions();
 }
 
-renderProducts();
+renderProducts(products.searchProduct(''));
 function initActions(){
   const viewElem = document.querySelectorAll('.js-view-button');
   viewElem.forEach((viewButton) => {
@@ -76,7 +77,7 @@ function validateUserInput() {
       description
     });
     toast('Add product');
-    renderProducts();
+    renderProducts(searchProduct(''));
   }
 }
 
@@ -101,12 +102,24 @@ function deleteProduct(itemId) {
     const result = products.deleteProduct(itemId);
     if(result) {
       toast('Deleted ');
-      renderProducts();
+      renderProducts(searchProduct(''));
     }
   });
 }
 
+searchProduct();
 
+function searchProduct() {
+  const searchElem = document.querySelector('.js-search-product');
+
+  searchElem.addEventListener('input', () => {
+    const value = searchElem.value.trim();
+    if(value === '')
+      renderProducts(products.searchProduct(''));
+    else 
+      renderProducts(products.searchProduct(value));
+  });
+}
 
 
 
