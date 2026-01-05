@@ -129,6 +129,9 @@ export function displayToast() {
   if(dialogDeleteProductElem)
     dialogDeleteProductElem.close();
 
+  if(dialogAttributesElem)
+    dialogAttributesElem.close();
+
 }
 
 //End of toast for product
@@ -173,3 +176,55 @@ function showDeleteDialog() {
   });
 }
 //end delete dialog
+
+//ATTRIBUTES DIALOG
+//ADD ATTRIBUTES DIALOG
+let dialogAttributesElem;
+export function renderModalAttributes(title) {
+  const dialogContainer = document.querySelector('.add-attibutes-dialog-container');
+  dialogContainer.innerHTML = 
+  `
+    <form class = "attribute-dialog"  method="dialog">
+      <header class="flex justify-between border-b border-b-gray-300 pb-5">
+        <p>Create new ${title.toLowerCase()}</p>
+        <button>
+          X
+        </button>
+      </header>
+      <div class="grid grid-cols-2 gap-4 mt-5">
+        <section class="col-span-2 flex flex-col gap-1">
+          <label for="attribute-name">${title} Name</label>
+          <input class="js-attribute-${title} border p-1 border-gray-300" type="text" name="attribute-name" id="">
+          <section class="flex gap-1 items-center mt-2 js-field-0 hidden text-xs font-light text-red-500">
+            <img class="size-4" src="/resources/mark.png" alt="">
+            <p class="">${title} name is required.</p>
+          </section>
+        </section>
+      </div>
+      <footer class="flex gap-3 mt-5 pt-5 border-t border-t-gray-300"> 
+        <button type="button" class="js-add-new-${title} bg-blue-600 items-center text-background p-2 flex gap-2">
+          <img class="size-5" src="/resources/plus-sign.png" alt="">Add new ${title.toLowerCase()}
+        </button>
+        <button class="border border-gray-300 p-2 px-5">
+          Cancel
+        </button>
+      </footer>
+    </form>  
+  
+  `
+  showAttributesDialog();
+}
+
+//PART OF ADD CATEGORY DIALOG
+function showAttributesDialog() {
+  dialogAttributesElem = document.querySelector('.add-attibutes-dialog-container');
+  dialogAttributesElem.showModal();
+  dialogAttributesElem.addEventListener('click', (e) => {
+    if (e.target === dialogAttributesElem) dialogAttributesElem.close();
+  });
+
+  dialogAttributesElem.addEventListener('close', () => {
+    dialogAttributesElem.close();
+  });
+}
+//End of category dialog

@@ -118,10 +118,10 @@
             <section class="flex gap-2">
               <div class="flex items-center gap-2 border border-gray-300 rounded-md p-2 max-[640px]:p-1">
                 <img class="size-4" src="/resources/search.png" alt="">
-                <input class="js-search-product outline-0" placeholder="Search category..." type="text" name="" id="">
+                <input class="js-search-category outline-0" placeholder="Search category..." type="text" name="" id="">
               </div>
-              <button class="js-add-product bg-green-500 p-2 border text-background">
-                Add product
+              <button class="js-add-category bg-green-500 p-2 border text-background">
+                Add category
               </button>
             </section>
           </div>
@@ -129,14 +129,12 @@
             <table class="min-w-175 w-full border-collapse">
               <thead>
                 <tr class="text-left">
-                  <th class="border-b border-l border-t border-gray-300 px-4 py-2">Product Name</th>
-                  <th class="border-b border-t border-gray-300 px-4 py-2">Product Type</th>
-                  <th class="border-b border-t border-gray-300 px-4 py-2">Description</th>
-                  <th class="border-b border-t border-gray-300 px-4 py-2">Category</th>
+                  <th class="border-b border-l border-t border-gray-300 px-4 py-2">Category Id</th>
+                  <th class="border-b border-t border-gray-300 px-4 py-2">Category Name</th>
                   <th class="border-b border-t border-r border-gray-300 px-4 py-2">Action</th>
                 </tr>
               </thead>
-              <tbody class="products-container">
+              <tbody class="category-container">
                 
               </tbody>
             </table>
@@ -213,7 +211,7 @@
     </section>
   </main>
 
-  <dialog class = "add-products-dialog m-auto rounded-lg p-5 w-[90%] max-w-md backdrop:bg-gray-900/50"> 
+  <dialog class = "add-attibutes-dialog-container m-auto rounded-lg p-5 w-[90%] max-w-md backdrop:bg-gray-900/50"> 
   </dialog>
   <div class="toast-notif-container"></div>
   <dialog class = "delete-product-dialog m-auto rounded-lg p-5 w-[90%] max-w-md backdrop:bg-gray-900/50">
