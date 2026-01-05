@@ -150,7 +150,7 @@ export function deleteDialog() {
       <p class="font-bold text-2xl ">Are you sure?</p>
       <p class="text-gray-500">This action cannot be undone. All values associated with this field will be lost.</p>
       <footer class="flex gap-2 border-t-gray-300"> 
-        <button type="button" class="js-delete-product bg-red-600 items-center text-background p-2 flex gap-2">
+        <button type="button" class="js-delete-product bg-red-600 items-center cursor-pointer text-background p-2 flex gap-2">
          Delete field
         </button>
         <button class="border border-gray-300 p-2 px-5">

@@ -20,6 +20,23 @@ export class Attributes {
     this.saveToLocalStorage();
   }
 
+  searchAttribute(char) {
+    
+    let tempValue = [];
+
+    if(!char)
+      return tempValue = this.attribute;
+
+    if(char)
+      this.attribute.forEach((value) => {
+        let attributeName = value.name.toLowerCase();
+        if(attributeName.includes(char.toLowerCase()))
+          tempValue.push(value);
+      });  
+
+    return tempValue;
+  }
+
   deleteAttribute(attributeId){
     let result = false
     if(attributeId){

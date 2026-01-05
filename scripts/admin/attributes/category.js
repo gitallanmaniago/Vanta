@@ -18,28 +18,27 @@ function addCategory() {
   const attriButtonElem = document.querySelector(`.js-add-new-${TITLE}`);
 
   attriButtonElem.addEventListener('click', () => {
-    const category = document.querySelector(`.js-attribute-${TITLE}`).value;
-    const tempValue = [category];
+    const name = document.querySelector(`.js-attribute-${TITLE}`).value;
+    const tempValue = [name];
     const result = fieldChecker(tempValue);
 
     if(result) {
-      attribute.insertAttribute({ id: Math.random(), category });
+      attribute.insertAttribute({ id: Math.random(), name });
       toast('Add category');
-      renderCategory();
+      renderCategory(attribute.searchAttribute(''));
     }
   });
 
 }
 
-function renderCategory() {
+function renderCategory(data) {
   const container = document.querySelector('.category-container');
   let containerHTML = '';
-  attribute.attribute.forEach((value) => {
+  data.forEach((value) => {
     containerHTML += `
-
       <tr class="hover:bg-gray-50">
       <td class="border-b border-l border-gray-300 px-4 py-2">${value.id}</td>
-      <td class="border-b border-gray-300 px-4 py-2">${value.category}</td>
+      <td class="border-b border-gray-300 px-4 py-2">${value.name}</td>
       <td class="border-b border-r border-gray-300 px-4 py-2 ">
         <button class="js-delete-category cursor-pointer" data-category-id=${value.id}>
           Delete
@@ -51,12 +50,12 @@ function renderCategory() {
   });
 
   container.innerHTML = containerHTML;
-  deleteCategory();
+  removeCategory();
 }
 
-renderCategory();
+renderCategory(attribute.searchAttribute(''));
 
-function deleteCategory() {
+function removeCategory() {
   const deleteElems = document.querySelectorAll('.js-delete-category');
   let result;
   deleteElems.forEach((deleteButton) => {
@@ -68,9 +67,24 @@ function deleteCategory() {
         result = attribute.deleteAttribute(categoryId);
         if(result){
           toast('Delete category ');
-          renderCategory();
+          renderCategory(attribute.searchAttribute(''));
         }
       });
     });
+  });
+}
+
+searchCategory();
+
+function searchCategory() {
+  const searchElem = document.querySelector('.js-search-category');
+
+  searchElem.addEventListener('input', () => {
+    const searchWord = searchElem.value.trim();
+    if(searchWord === '')
+      renderCategory(attribute.searchAttribute(''));
+    else 
+      renderCategory(attribute.searchAttribute(searchWord));
+
   });
 }

@@ -88,7 +88,7 @@ function deleteProduct(itemId) {
     const result = products.deleteProduct(itemId);
     if(result) {
       toast('Deleted ');
-      renderProducts(searchProduct(''));
+      renderProducts(products.searchProduct(''));
     }
   });
 }
