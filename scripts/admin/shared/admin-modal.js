@@ -110,24 +110,24 @@ export function toast(msg) {
 export function displayToast() {
   const dialogElem = document.querySelector('.toast-notif-product');
   dialogElem.showModal();
-  dialogElem.addEventListener('click', (e) => {
-    if (e.target === dialogElem) dialogElem.close();
-  });
+  // dialogElem.addEventListener('click', (e) => {
+  //   if (e.target === dialogElem) dialogElem.close();
+  // });
 
-  dialogElem.addEventListener('close', () => {
-    dialogElem.remove();
-  });
+  // dialogElem.addEventListener('close', () => {
+  //   dialogElem.remove();
+  // });
   
   clearTimeout();
   setTimeout(() => {
     dialogElem.close();
-  }, 1000);
+  }, 1500);
 
   if(dialogProductElem)
     dialogProductElem.close();
 
-  if(dialogDeleteProductElem)
-    dialogDeleteProductElem.close();
+  if(dialogDeleteElem)
+    dialogDeleteElem.close();
 
   if(dialogAttributesElem)
     dialogAttributesElem.close();
@@ -137,7 +137,7 @@ export function displayToast() {
 //End of toast for product
 //Delete toast
 //Start
-let dialogDeleteProductElem;
+let dialogDeleteElem;
 export function deleteDialog() {
   const dialogContainer = document.querySelector('.delete-product-dialog');
   let dialogHTML = '';
@@ -165,14 +165,14 @@ export function deleteDialog() {
 
 //PART OF delete dialog
 function showDeleteDialog() {
-  dialogDeleteProductElem = document.querySelector('.delete-product-dialog');
-  dialogDeleteProductElem.showModal();
-  dialogDeleteProductElem.addEventListener('click', (e) => {
-    if (e.target === dialogDeleteProductElem) dialogDeleteProductElem.close();
+  dialogDeleteElem = document.querySelector('.delete-product-dialog');
+  dialogDeleteElem.showModal();
+  dialogDeleteElem.addEventListener('click', (e) => {
+    if (e.target === dialogDeleteElem) dialogDeleteElem.close();
   });
 
-  dialogDeleteProductElem.addEventListener('close', () => {
-    dialogDeleteProductElem.close();
+  dialogDeleteElem.addEventListener('close', () => {
+    dialogDeleteElem.close();
   });
 }
 //end delete dialog

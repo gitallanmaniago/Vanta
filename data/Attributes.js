@@ -21,9 +21,7 @@ export class Attributes {
   }
 
   searchAttribute(char) {
-    
     let tempValue = [];
-
     if(!char)
       return tempValue = this.attribute;
 

@@ -2,19 +2,19 @@ import { Attributes } from "../../../data/Attributes.js";
 import { fieldChecker } from "../../shared/fieldcheck.js";
 import { deleteDialog, renderModalAttributes, toast } from "../shared/admin-modal.js";
 
-const TITLE = 'Category';
+const TITLE = 'Attribute';
 
 const attribute = new Attributes(TITLE);
 
-const openCatElem = document.querySelector('.js-add-category');
+const openCatElem = document.querySelector('.js-add-attribute');
 
 openCatElem.addEventListener('click', () => {
   renderModalAttributes(TITLE);
-  addCategory(TITLE);
+  addAttribute(TITLE);
 });
 
 
-function addCategory() {
+function addAttribute() {
   const attriButtonElem = document.querySelector(`.js-add-new-${TITLE}`);
 
   attriButtonElem.addEventListener('click', () => {
@@ -24,15 +24,15 @@ function addCategory() {
 
     if(result) {
       attribute.insertAttribute({ id: Math.random(), name });
-      toast('Add category');
-      renderCategory(attribute.searchAttribute(''));
+      toast('Add attribute');
+      renderAttribute(attribute.searchAttribute(''));
     }
   });
 
 }
 
-function renderCategory(data) {
-  const container = document.querySelector('.category-container');
+function renderAttribute(data) {
+  const container = document.querySelector('.attribute-container');
   let containerHTML = '';
   data.forEach((value) => {
     containerHTML += `
@@ -40,7 +40,7 @@ function renderCategory(data) {
       <td class="border-b border-l border-gray-300 px-4 py-2">${value.id}</td>
       <td class="border-b border-gray-300 px-4 py-2">${value.name}</td>
       <td class="border-b border-r border-gray-300 px-4 py-2 ">
-        <button class="js-delete-category cursor-pointer" data-category-id=${value.id}>
+        <button class="js-delete-attribute cursor-pointer" data-category-id=${value.id}>
           Delete
         </button>
       </td>
@@ -53,10 +53,10 @@ function renderCategory(data) {
   removeCategory();
 }
 
-renderCategory(attribute.searchAttribute(''));
+renderAttribute(attribute.searchAttribute(''));
 
 function removeCategory() {
-  const deleteElems = document.querySelectorAll('.js-delete-category');
+  const deleteElems = document.querySelectorAll('.js-delete-attribute');
   let result;
   deleteElems.forEach((deleteButton) => {
     deleteButton.addEventListener('click', () => {
@@ -66,8 +66,8 @@ function removeCategory() {
       deleteElem.addEventListener('click', () => {
         result = attribute.deleteAttribute(categoryId);
         if(result){
-          toast('Delete category ');
-          renderCategory(attribute.searchAttribute(''));
+          toast('Delete attribute ');
+          renderAttribute(attribute.searchAttribute(''));
         }
       });
     });
@@ -77,13 +77,14 @@ function removeCategory() {
 searchCategory();
 
 function searchCategory() {
-  const searchElem = document.querySelector('.js-search-category');
+  const searchElem = document.querySelector('.js-search-attribute');
 
   searchElem.addEventListener('input', () => {
     const searchWord = searchElem.value.trim();
     if(searchWord === '')
-      renderCategory(attribute.searchAttribute(''));
+      renderAttribute(attribute.searchAttribute(''));
     else 
-      renderCategory(attribute.searchAttribute(searchWord));
+      renderAttribute(attribute.searchAttribute(searchWord));
+
   });
 }

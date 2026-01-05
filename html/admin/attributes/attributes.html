@@ -144,14 +144,14 @@
         <section class="grid grid-rows-1 lg:grid-rows-2 gap-2 min-w-0">
           <div class="min-w-0 flex flex-col gap-2">
             <header class="flex flex-wrap items-center justify-between">
-              <p class="text-base font-header">COLOR</p>
+              <p class="text-base font-header">Attribute</p>
               <section class="flex gap-2">
                 <div class="flex items-center gap-2 border border-gray-300 rounded-md p-2 max-[640px]:p-1">
                   <img class="size-4" src="/resources/search.png" alt="">
-                  <input class="js-search-product outline-0" placeholder="Search color..." type="text" name="" id="">
+                  <input class="js-search-attribute outline-0" placeholder="Search attribute..." type="text" name="" id="">
                 </div>
-                <button class="js-add-product bg-green-500 p-2 border text-background">
-                  Add Color
+                <button class="js-add-attribute bg-green-500 p-2 border text-background">
+                  Add attribute
                 </button>
               </section>
             </header>
@@ -160,14 +160,12 @@
               <table class="min-w-175 w-full border-collapse">
               <thead>
                 <tr class="text-left">
-                  <th class="border-b border-l border-t border-gray-300 px-4 py-2">Product Name</th>
-                  <th class="border-b border-t border-gray-300 px-4 py-2">Product Type</th>
-                  <th class="border-b border-t border-gray-300 px-4 py-2">Description</th>
-                  <th class="border-b border-t border-gray-300 px-4 py-2">Category</th>
+                  <th class="border-b border-l border-t border-gray-300 px-4 py-2">Attribute Id</th>
+                  <th class="border-b border-t border-gray-300 px-4 py-2">Attribute Name</th>
                   <th class="border-b border-t border-r border-gray-300 px-4 py-2">Action</th>
                 </tr>
               </thead>
-              <tbody class="products-container">
+              <tbody class="attribute-container">
                 
               </tbody>
             </table>
@@ -175,14 +173,14 @@
           </div>
           <div class="min-w-0 min-h-[50%] flex flex-col gap-2">
             <header class="flex flex-wrap items-center justify-between">
-              <p class="text-base font-header">SIZE</p>
+              <p class="text-base font-header">Attribute Values</p>
               <section class="flex gap-2">
                 <div class="flex items-center gap-2 border border-gray-300 rounded-md p-2 max-[640px]:p-1">
                   <img class="size-4" src="/resources/search.png" alt="">
-                  <input class="js-search-product outline-0" placeholder="Search size..." type="text" name="" id="">
+                  <input class="js-search-product outline-0" placeholder="Search values..." type="text" name="" id="">
                 </div>
                 <button class="js-add-product bg-green-500 p-2 border text-background">
-                  Add Size
+                  Add values
                 </button>
               </section>
             </header>
@@ -191,11 +189,10 @@
               <table class="min-w-175 w-full border-collapse">
               <thead>
                 <tr class="text-left">
-                  <th class="border-b border-l border-t border-gray-300 px-4 py-2">Product Name</th>
-                  <th class="border-b border-t border-gray-300 px-4 py-2">Product Type</th>
-                  <th class="border-b border-t border-gray-300 px-4 py-2">Description</th>
-                  <th class="border-b border-t border-gray-300 px-4 py-2">Category</th>
-                  <th class="border-b border-t border-r border-gray-300 px-4 py-2">Action</th>
+                  <th class="border-b border-l border-t border-gray-300 px-4 py-2">Value Id</th>
+                  <th class="border-b border-t border-gray-300 px-4 py-2">Attribute Id</th>
+                  <th class="border-b border-t border-gray-300 px-4 py-2">Value Name</th>
+                  <th class="border-b border-t border-gray-300 px-4 py-2">Action</th>
                 </tr>
               </thead>
               <tbody class="products-container">
@@ -231,4 +228,5 @@
 <script type="module" src="/src/main.js"></script>
 <script type="module" src="/scripts/shared/header.js"></script>
 <script type="module" src="/scripts/admin/attributes/category.js"></script>
+<script type="module" src="/scripts/admin/attributes/attribute.js"></script>
 </html>
