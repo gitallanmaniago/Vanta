@@ -15,8 +15,23 @@ export class Attributes {
     this.attribute = JSON.parse(localStorage.getItem(this.#localStorageKey)) || [];
   }
 
-  insertAttribute(localStorageKey, data) {
-    this.#localStorageKey = localStorageKey;
+  insertAttribute(data) {
     this.attribute.push(data);
+    this.saveToLocalStorage();
+  }
+
+  deleteAttribute(attributeId){
+    let result = false
+    if(attributeId){
+      this.attribute.forEach((value, index) => {
+        if(value.id === Number(attributeId)){
+          result = true;
+          this.attribute.splice(index, 1);
+        }
+      });
+    }
+
+    this.saveToLocalStorage();
+    return result;
   }
 }

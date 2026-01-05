@@ -163,7 +163,7 @@ export function deleteDialog() {
   showDeleteDialog();
 }
 
-//PART OF delete product DIALOG
+//PART OF delete dialog
 function showDeleteDialog() {
   dialogDeleteProductElem = document.querySelector('.delete-product-dialog');
   dialogDeleteProductElem.showModal();

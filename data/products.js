@@ -40,7 +40,6 @@ export class Products {
   insertProducts(data) {
     this.products.push(data);
     this.saveToLocalStorage();
-    console.log(this.products);
   }
 
   deleteProduct(itemId) {
