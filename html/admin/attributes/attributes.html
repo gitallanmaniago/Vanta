@@ -95,8 +95,8 @@
     <aside class="max-[640px]:hidden flex flex-col gap-2 h-full tracking-widest text-xl cursor-pointer">
       <p class="">DASHBOARD</p>
       <a class="" href="/html/admin/inventory/inventory.html">INVENTORY</a>
-      <a class="underline font-bold" href="/html/admin/products/products.html">PRODUCTS</a>
-      <a class="" href="/html/admin/attributes/attributes.html">ATTRIBUTES</a>
+      <a class="" href="/html/admin/products/products.html">PRODUCTS</a>
+      <a class="underline font-bold" href="/html/admin/attributes/attributes.html">ATTRIBUTES</a>
       <p class="">REPORTS</p>
       <p class="">ACTIVITY LOG</p>
       <p class="">USERS</p>
@@ -108,34 +108,107 @@
     <section class="flex flex-col gap-5">
       <section class="flex flex-col gap-5">
         <div class="flex justify-between gap-2 flex-wrap items-center">
-          <p class="text-xl font-header">PRODUCTS</p>
-          <div class="flex gap-2">
-            <div class="flex items-center gap-2 border border-gray-300 rounded-md p-2 max-[640px]:p-1">
-              <img class="size-4" src="/resources/search.png" alt="">
-              <input class="js-search-product outline-0" placeholder="Search product..." type="text" name="" id="">
-            </div>
-            <button class="js-add-product bg-green-500 p-2 border text-background">
-              Add product
-            </button>
-          </div>
+          <p class="text-xl font-header">ATTRIBUTES</p>
         </div>
       </section>
-      <section class="w-full overflow-x-auto">
-        <table class="min-w-175 w-full border-collapse">
-          <thead>
-            <tr class="text-left">
-              <th class="border-b border-l border-t border-gray-300 px-4 py-2">Product Name</th>
-              <th class="border-b border-t border-gray-300 px-4 py-2">Product Type</th>
-              <th class="border-b border-t border-gray-300 px-4 py-2">Description</th>
-              <th class="border-b border-t border-gray-300 px-4 py-2">Category</th>
-              <th class="border-b border-t border-r border-gray-300 px-4 py-2">Action</th>
-            </tr>
-          </thead>
-          <tbody class="products-container">
-            
-          </tbody>
-        </table>
-      </section>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+        <div class="sm:col-span-1 flex flex-col gap-2">
+          <div class="flex gap-2 justify-between items-center flex-wrap">
+            <p class="text-base font-header">CATEGORY</p>
+            <section class="flex gap-2">
+              <div class="flex items-center gap-2 border border-gray-300 rounded-md p-2 max-[640px]:p-1">
+                <img class="size-4" src="/resources/search.png" alt="">
+                <input class="js-search-product outline-0" placeholder="Search category..." type="text" name="" id="">
+              </div>
+              <button class="js-add-product bg-green-500 p-2 border text-background">
+                Add product
+              </button>
+            </section>
+          </div>
+          <section class="w-full overflow-x-auto">
+            <table class="min-w-175 w-full border-collapse">
+              <thead>
+                <tr class="text-left">
+                  <th class="border-b border-l border-t border-gray-300 px-4 py-2">Product Name</th>
+                  <th class="border-b border-t border-gray-300 px-4 py-2">Product Type</th>
+                  <th class="border-b border-t border-gray-300 px-4 py-2">Description</th>
+                  <th class="border-b border-t border-gray-300 px-4 py-2">Category</th>
+                  <th class="border-b border-t border-r border-gray-300 px-4 py-2">Action</th>
+                </tr>
+              </thead>
+              <tbody class="products-container">
+                
+              </tbody>
+            </table>
+          </section>
+        </div>
+        
+        <section class="grid grid-rows-1 lg:grid-rows-2 gap-2 min-w-0">
+          <div class="min-w-0 flex flex-col gap-2">
+            <header class="flex flex-wrap items-center justify-between">
+              <p class="text-base font-header">COLOR</p>
+              <section class="flex gap-2">
+                <div class="flex items-center gap-2 border border-gray-300 rounded-md p-2 max-[640px]:p-1">
+                  <img class="size-4" src="/resources/search.png" alt="">
+                  <input class="js-search-product outline-0" placeholder="Search color..." type="text" name="" id="">
+                </div>
+                <button class="js-add-product bg-green-500 p-2 border text-background">
+                  Add Color
+                </button>
+              </section>
+            </header>
+
+            <section class="overflow-x-auto">
+              <table class="min-w-175 w-full border-collapse">
+              <thead>
+                <tr class="text-left">
+                  <th class="border-b border-l border-t border-gray-300 px-4 py-2">Product Name</th>
+                  <th class="border-b border-t border-gray-300 px-4 py-2">Product Type</th>
+                  <th class="border-b border-t border-gray-300 px-4 py-2">Description</th>
+                  <th class="border-b border-t border-gray-300 px-4 py-2">Category</th>
+                  <th class="border-b border-t border-r border-gray-300 px-4 py-2">Action</th>
+                </tr>
+              </thead>
+              <tbody class="products-container">
+                
+              </tbody>
+            </table>
+            </section>
+          </div>
+          <div class="min-w-0 min-h-[50%] flex flex-col gap-2">
+            <header class="flex flex-wrap items-center justify-between">
+              <p class="text-base font-header">SIZE</p>
+              <section class="flex gap-2">
+                <div class="flex items-center gap-2 border border-gray-300 rounded-md p-2 max-[640px]:p-1">
+                  <img class="size-4" src="/resources/search.png" alt="">
+                  <input class="js-search-product outline-0" placeholder="Search size..." type="text" name="" id="">
+                </div>
+                <button class="js-add-product bg-green-500 p-2 border text-background">
+                  Add Size
+                </button>
+              </section>
+            </header>
+
+            <section class="overflow-x-auto">
+              <table class="min-w-175 w-full border-collapse">
+              <thead>
+                <tr class="text-left">
+                  <th class="border-b border-l border-t border-gray-300 px-4 py-2">Product Name</th>
+                  <th class="border-b border-t border-gray-300 px-4 py-2">Product Type</th>
+                  <th class="border-b border-t border-gray-300 px-4 py-2">Description</th>
+                  <th class="border-b border-t border-gray-300 px-4 py-2">Category</th>
+                  <th class="border-b border-t border-r border-gray-300 px-4 py-2">Action</th>
+                </tr>
+              </thead>
+              <tbody class="products-container">
+                
+              </tbody>
+            </table>
+            </section>
+          </div>
+        </section>
+      </div>
+      
     
     </section>
   </main>
@@ -159,5 +232,5 @@
 </body>
 <script type="module" src="/src/main.js"></script>
 <script type="module" src="/scripts/shared/header.js"></script>
-<script type="module" src="/scripts/admin/products/products.js"></script>
+<script type="module" src="/scripts/admin/attributes/category.js"></script>
 </html>
