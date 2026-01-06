@@ -1,14 +1,16 @@
 import { Attributes } from "../../../data/Attributes.js";
+import { AttributeValues } from "../../../data/AttributeValues.js";
 import { fieldChecker } from "../../shared/fieldcheck.js";
-import { deleteDialog, renderModalAttributes, toast } from "../shared/admin-modal.js";
+import { deleteDialog, renderModalAttributes, renderValueAttribute, toast } from "../shared/admin-modal.js";
 
 const TITLE = 'Attribute';
+const SUBTITLE = 'AttributeValue'
 
 const attribute = new Attributes(TITLE);
+const attributeValues = new AttributeValues(SUBTITLE);
 
-const openCatElem = document.querySelector('.js-add-attribute');
-
-openCatElem.addEventListener('click', () => {
+const openAttriElem = document.querySelector('.js-add-attribute');
+openAttriElem.addEventListener('click', () => {
   renderModalAttributes(TITLE);
   addAttribute(TITLE);
 });
@@ -50,12 +52,12 @@ function renderAttribute(data) {
   });
 
   container.innerHTML = containerHTML;
-  removeCategory();
+  removeAttribute();
 }
 
 renderAttribute(attribute.searchAttribute(''));
 
-function removeCategory() {
+function removeAttribute() {
   const deleteElems = document.querySelectorAll('.js-delete-attribute');
   let result;
   deleteElems.forEach((deleteButton) => {
@@ -74,9 +76,9 @@ function removeCategory() {
   });
 }
 
-searchCategory();
+searchAttribute();
 
-function searchCategory() {
+function searchAttribute() {
   const searchElem = document.querySelector('.js-search-attribute');
 
   searchElem.addEventListener('input', () => {
@@ -88,3 +90,62 @@ function searchCategory() {
 
   });
 }
+
+/*
+*
+* Attribute Values functions
+* Start of attribute values
+* 
+*/
+
+const showDialogElem = document.querySelector('.js-add-values');
+
+showDialogElem.addEventListener('click', () => {
+  renderValueAttribute('Attribute value');
+  const addAttributeElem = document.querySelector('.js-add-attribute-value');
+  
+  addAttributeElem.addEventListener('click', () => {
+    const dropdownValue = getSelectedValues();
+    const attributeValue = document.querySelector('.js-attribute-value').value;
+    const result = fieldChecker([dropdownValue, attributeValue]);
+
+    if(result) {
+      attributeValues.insertAttributeValue({
+        id: Math.random(), 
+        categoryId: dropdownValue, 
+        attributeValue
+      });
+      toast('Add attribute values ');
+      renderAttributeValues();
+    }
+  });
+  
+});
+
+function getSelectedValues() {
+  const attributeSelectElem = document.querySelector('.js-attribute-name');
+  return attributeSelectElem.value;
+}
+
+function renderAttributeValues (data) {
+  const container = document.querySelector('.attribute-values-container');
+  let containerHTML = '';
+
+  attributeValues.attributeValues.forEach((values) => {
+    containerHTML += `
+    <tr class="hover:bg-gray-50">
+      <td class="border-b border-l border-gray-300 px-4 py-2">${values.id}</td>
+      <td class="border-b border-gray-300 px-4 py-2">${attribute.getMatchingAttribute(values.categoryId)?.name || ''}</td>
+      <td class="border-b border-gray-300 px-4 py-2">${values.attributeValue}</td>
+      <td class="border-b border-r border-gray-300 px-4 py-2 ">
+        <button class="js-delete-attribute cursor-pointer" data-attribute-id=${values.id}>
+          Delete
+        </button>
+      </td>
+    </tr>
+    `
+  });
+  container.innerHTML = containerHTML;
+}
+
+renderAttributeValues();

@@ -60,7 +60,7 @@ export class Products {
 
   getMatchingItem(itemId) {
     let tempValue = [];
-    this.items.forEach((value) => {
+    this.products.forEach((value) => {
       if(value.id === itemId) {
         tempValue = value;
       }

@@ -1,5 +1,5 @@
-export class Attributes {
-  attribute = []
+export class AttributeValues {
+  attributeValues = []
   #localStorageKey;
 
   constructor(localStorageKey) {
@@ -8,25 +8,25 @@ export class Attributes {
   }
 
   saveToLocalStorage() {
-    localStorage.setItem(this.#localStorageKey, JSON.stringify(this.attribute));
+    localStorage.setItem(this.#localStorageKey, JSON.stringify(this.attributeValues));
   }
 
   loadFromLocalStorage() {
-    this.attribute = JSON.parse(localStorage.getItem(this.#localStorageKey)) || [];
+    this.attributeValues = JSON.parse(localStorage.getItem(this.#localStorageKey)) || [];
   }
 
-  insertAttribute(data) {
-    this.attribute.push(data);
+  insertAttributeValue(data) {
+    this.attributeValues.push(data);
     this.saveToLocalStorage();
   }
 
-  searchAttribute(char) {
+  searchAttributeValue(char) {
     let tempValue = [];
     if(!char)
-      return tempValue = this.attribute;
+      return tempValue = this.attributeValues;
 
     if(char)
-      this.attribute.forEach((value) => {
+      this.attributeValues.forEach((value) => {
         let attributeName = value.name.toLowerCase();
         if(attributeName.includes(char.toLowerCase()))
           tempValue.push(value);
@@ -35,17 +35,13 @@ export class Attributes {
     return tempValue;
   }
 
-  getMatchingAttribute(id) {
-    return this.attribute.find(item => item.id === Number(id)) || null;
-  }
-
-  deleteAttribute(attributeId){
+  deleteAttributeValue(attributeId){
     let result = false
     if(attributeId){
-      this.attribute.forEach((value, index) => {
+      this.attributeValues.forEach((value, index) => {
         if(value.id === Number(attributeId)){
           result = true;
-          this.attribute.splice(index, 1);
+          this.attributeValues.splice(index, 1);
         }
       });
     }
