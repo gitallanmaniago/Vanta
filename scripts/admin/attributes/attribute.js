@@ -62,16 +62,9 @@ function removeAttribute() {
   let result;
   deleteElems.forEach((deleteButton) => {
     deleteButton.addEventListener('click', () => {
-      const categoryId = deleteButton.dataset.categoryId;
+      const id = deleteButton.dataset.categoryId;
       deleteDialog();
-      const deleteElem = document.querySelector('.js-delete-product');
-      deleteElem.addEventListener('click', () => {
-        result = attribute.deleteAttribute(categoryId);
-        if(result){
-          toast('Delete attribute ');
-          renderAttribute(attribute.searchAttribute(''));
-        }
-      });
+      deleteAttribute('Attribute', id);
     });
   });
 }
@@ -138,7 +131,7 @@ function renderAttributeValues (data) {
       <td class="border-b border-gray-300 px-4 py-2">${attribute.getMatchingAttribute(values.categoryId)?.name || ''}</td>
       <td class="border-b border-gray-300 px-4 py-2">${values.attributeValue}</td>
       <td class="border-b border-r border-gray-300 px-4 py-2 ">
-        <button class="js-delete-attribute cursor-pointer" data-attribute-id=${values.id}>
+        <button class="js-delete-attribute-value cursor-pointer" data-attribute-value-id=${values.id}>
           Delete
         </button>
       </td>
@@ -146,6 +139,38 @@ function renderAttributeValues (data) {
     `
   });
   container.innerHTML = containerHTML;
+  deleteAttributeValue();
 }
 
 renderAttributeValues();
+
+function deleteAttributeValue() {
+  const promtDeleteDialog = document.querySelectorAll('.js-delete-attribute-value');
+  promtDeleteDialog.forEach((deleteElem) => {
+    const id = deleteElem.dataset.attributeValueId;
+    deleteElem.addEventListener('click', () => {
+      deleteDialog();
+      deleteAttribute(null, id);
+    });
+  });
+  
+}
+
+function deleteAttribute(module, id) {
+  const deleteAttributeElem = document.querySelector('.js-delete-product');
+    deleteAttributeElem.addEventListener('click', () => {
+      let result;
+      
+      if(module) { 
+        result = attribute.deleteAttribute(id); 
+        attributeValues.deleteAttributeValue(null, id);
+      } else
+        result = attributeValues.deleteAttributeValue(id); 
+    
+      if(result){
+        toast('Field deleted');
+        renderAttribute(attribute.searchAttribute(''));
+        renderAttributeValues();
+      }
+    });
+}

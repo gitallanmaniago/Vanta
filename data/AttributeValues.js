@@ -35,7 +35,7 @@ export class AttributeValues {
     return tempValue;
   }
 
-  deleteAttributeValue(attributeId){
+  deleteAttributeValue(attributeId, categoryId){
     let result = false
     if(attributeId){
       this.attributeValues.forEach((value, index) => {
@@ -46,7 +46,17 @@ export class AttributeValues {
       });
     }
 
+    if(categoryId) {
+      this.attributeValues.forEach((value, index) => {
+        if(Number(value.categoryId) === Number(categoryId)){
+          result = true;
+          this.attributeValues.splice(index, 1);
+        }
+      });
+    }
+
     this.saveToLocalStorage();
     return result;
   }
+
 }
