@@ -27,8 +27,8 @@ export class AttributeValues {
 
     if(char)
       this.attributeValues.forEach((value) => {
-        let attributeName = value.name.toLowerCase();
-        if(attributeName.includes(char.toLowerCase()))
+        let attributeValue = value.attributeValue.toLowerCase();
+        if(attributeValue.includes(char.toLowerCase()))
           tempValue.push(value);
       });  
 
@@ -47,12 +47,10 @@ export class AttributeValues {
     }
 
     if(categoryId) {
-      this.attributeValues.forEach((value, index) => {
-        if(Number(value.categoryId) === Number(categoryId)){
-          result = true;
-          this.attributeValues.splice(index, 1);
-        }
-      });
+      const originalLength = this.attributeValues.length;
+      this.attributeValues = this.attributeValues.filter(value => Number(value.categoryId) !== Number(categoryId));
+
+      result = this.attributeValues != this.originalLength;
     }
 
     this.saveToLocalStorage();

@@ -76,10 +76,12 @@ function searchAttribute() {
 
   searchElem.addEventListener('input', () => {
     const searchWord = searchElem.value.trim();
-    if(searchWord === '')
-      renderAttribute(attribute.searchAttribute(''));
-    else 
-      renderAttribute(attribute.searchAttribute(searchWord));
+    dynamicSearch({type: 'Attribute', searchWord})
+    // const searchWord = searchElem.value.trim();
+    // if(searchWord === '')
+    //   renderAttribute(attribute.searchAttribute(''));
+    // else 
+    //   renderAttribute(attribute.searchAttribute(searchWord));
 
   });
 }
@@ -109,7 +111,7 @@ showDialogElem.addEventListener('click', () => {
         attributeValue
       });
       toast('Add attribute values ');
-      renderAttributeValues();
+      renderAttributeValues(attributeValues.searchAttributeValue(''));
     }
   });
   
@@ -124,7 +126,7 @@ function renderAttributeValues (data) {
   const container = document.querySelector('.attribute-values-container');
   let containerHTML = '';
 
-  attributeValues.attributeValues.forEach((values) => {
+  data.forEach((values) => {
     containerHTML += `
     <tr class="hover:bg-gray-50">
       <td class="border-b border-l border-gray-300 px-4 py-2">${values.id}</td>
@@ -142,7 +144,7 @@ function renderAttributeValues (data) {
   deleteAttributeValue();
 }
 
-renderAttributeValues();
+renderAttributeValues(attributeValues.searchAttributeValue(''));
 
 function deleteAttributeValue() {
   const promtDeleteDialog = document.querySelectorAll('.js-delete-attribute-value');
@@ -156,11 +158,20 @@ function deleteAttributeValue() {
   
 }
 
+function searchAttributeValue() {
+  const searchElem = document.querySelector('.js-search-values');
+  searchElem.addEventListener('input', () => {
+    const searchWord = searchElem.value.trim();
+    dynamicSearch({type: 'AttributeValue', searchWord})
+  });
+}
+searchAttributeValue();
+
 function deleteAttribute(module, id) {
   const deleteAttributeElem = document.querySelector('.js-delete-product');
     deleteAttributeElem.addEventListener('click', () => {
       let result;
-      
+
       if(module) { 
         result = attribute.deleteAttribute(id); 
         attributeValues.deleteAttributeValue(null, id);
@@ -170,7 +181,23 @@ function deleteAttribute(module, id) {
       if(result){
         toast('Field deleted');
         renderAttribute(attribute.searchAttribute(''));
-        renderAttributeValues();
+        renderAttributeValues(attributeValues.searchAttributeValue(''));
       }
     });
+}
+
+function dynamicSearch({type, searchWord}) {
+  const search = {
+    Attribute: () => {
+      renderAttribute(attribute.searchAttribute(searchWord));
+    },
+    AttributeValue: () => {
+      renderAttributeValues(attributeValues.searchAttributeValue(searchWord));
+    }
+  }
+  const searchFunc = search[type];
+
+  if(!searchFunc) return;
+
+  searchFunc();
 }
