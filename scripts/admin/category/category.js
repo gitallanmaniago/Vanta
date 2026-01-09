@@ -1,11 +1,13 @@
 import { Attributes } from "../../../data/Attributes.js";
+import { Subcategory } from "../../../data/Subcategory.js";
 import { fieldChecker } from "../../shared/fieldcheck.js";
-import { deleteDialog, renderModalAttributes, toast } from "../shared/admin-modal.js";
+import { deleteDialog, renderModalAttributes, renderSubcategoryDialog, toast } from "../shared/admin-modal.js";
 
 const TITLE = 'Category';
+const SUBTITLE = 'Subcategory';
 
 const attribute = new Attributes(TITLE);
-
+const subcategory = new Subcategory(SUBTITLE);
 const openCatElem = document.querySelector('.js-add-category');
 
 openCatElem.addEventListener('click', () => {
@@ -64,11 +66,7 @@ function removeCategory() {
       deleteDialog();
       const deleteElem = document.querySelector('.js-delete-product');
       deleteElem.addEventListener('click', () => {
-        result = attribute.deleteAttribute(categoryId);
-        if(result){
-          toast('Delete category ');
-          renderCategory(attribute.searchAttribute(''));
-        }
+        deleteSubcategoryValue('Category', categoryId);
       });
     });
   });
@@ -81,9 +79,121 @@ function searchCategory() {
 
   searchElem.addEventListener('input', () => {
     const searchWord = searchElem.value.trim();
-    if(searchWord === '')
-      renderCategory(attribute.searchAttribute(''));
-    else 
-      renderCategory(attribute.searchAttribute(searchWord));
+    dynamicSearch({type: 'Category', searchWord})
   });
+}
+
+/*
+*
+* Subcategory functions
+* Start of Subcategory 
+* 
+*/
+
+const showDialogElem = document.querySelector('.js-add-subcategory');
+
+showDialogElem.addEventListener('click', () => {
+  renderSubcategoryDialog('Subcategory ');
+  const addAttributeElem = document.querySelector('.js-add-subcategory-value');
+  
+  addAttributeElem.addEventListener('click', () => {
+    const dropdownValue = getSelectedValues();
+    const attributeValue = document.querySelector('.js-attribute-value').value;
+    const result = fieldChecker([dropdownValue, attributeValue]);
+
+    if(result) {
+      subcategory.insertSubcategory({
+        id: Math.random(), 
+        categoryId: dropdownValue, 
+        attributeValue
+      });
+      toast('Add subcategory values ');
+      renderSubcategory(subcategory.searchSubcategory(''));
+    }
+  });
+  
+});
+
+function getSelectedValues() {
+  const attributeSelectElem = document.querySelector('.js-attribute-name');
+  return attributeSelectElem.value;
+}
+
+function renderSubcategory (data) {
+  const container = document.querySelector('.subcategory-container');
+  let containerHTML = '';
+
+  data.forEach((values) => {
+    containerHTML += `
+    <tr class="hover:bg-gray-50">
+      <td class="border-b border-l border-gray-300 px-4 py-2">${values.id}</td>
+      <td class="border-b border-gray-300 px-4 py-2">${attribute.getMatchingAttribute(values.categoryId)?.name || ''}</td>
+      <td class="border-b border-gray-300 px-4 py-2">${values.attributeValue}</td>
+      <td class="border-b border-r border-gray-300 px-4 py-2 ">
+        <button class="js-delete-subcategory cursor-pointer" data-subcategory-id=${values.id}>
+          Delete
+        </button>
+      </td>
+    </tr>
+    `
+  });
+  container.innerHTML = containerHTML;
+  deleteSubcategory();
+}
+
+renderSubcategory(subcategory.searchSubcategory(''));
+
+function deleteSubcategory() {
+  const promtDeleteDialog = document.querySelectorAll('.js-delete-subcategory');
+  promtDeleteDialog.forEach((deleteElem) => {
+    const id = deleteElem.dataset.subcategoryId;
+    deleteElem.addEventListener('click', () => {
+      deleteDialog();
+      deleteSubcategoryValue(null, id);
+    });
+  });
+}
+
+function searchSubcategory() {
+  const searchElem = document.querySelector('.js-search-subcategory');
+  searchElem.addEventListener('input', () => {
+    const searchWord = searchElem.value.trim();
+    dynamicSearch({type: 'AttributeValue', searchWord})
+  });
+}
+searchSubcategory();
+
+function deleteSubcategoryValue(module, id) {
+  const deleteSubcategoryElem = document.querySelector('.js-delete-product');
+    deleteSubcategoryElem.addEventListener('click', () => {
+      let result;
+
+      if(module) { 
+        result = attribute.deleteAttribute(id); 
+        subcategory.deleteSubcategory(null, id);
+      } else
+        result = subcategory.deleteSubcategory(id); 
+    
+      if(result){
+        toast('Field deleted');
+        renderCategory(attribute.searchAttribute(''));
+        renderSubcategory(subcategory.searchSubcategory(''));
+      }
+    });
+}
+
+function dynamicSearch({type, searchWord}) {
+  const search = {
+    Category: () => {
+      renderCategory(attribute.searchAttribute(searchWord));
+    },
+    AttributeValue: () => {
+      renderSubcategory(subcategory.searchSubcategory(searchWord));
+    }
+  }
+  const searchFunc = search[type];
+
+  if(!searchFunc) return;
+
+  searchFunc();
 }

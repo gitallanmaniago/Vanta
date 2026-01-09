@@ -4,7 +4,7 @@ import { deleteDialog, renderModalAttributes, toast } from "../shared/admin-moda
 
 const openDialogElem = document.querySelector('.js-add-type');
 
-const TITLE = 'Types';
+const TITLE = 'Type';
 const types = new Types(TITLE);
 
 openDialogElem.addEventListener('click', () => {

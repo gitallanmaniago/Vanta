@@ -1,5 +1,7 @@
 import { Attributes } from "../../../data/Attributes";
 const attribute = new Attributes('Attribute');
+const category = new Attributes('Category');
+
 //PRODUCTS DIALOG
 //ADD PRODUCT DIALOG
 let dialogProductElem;
@@ -136,6 +138,9 @@ export function displayToast() {
 
   if(dialogAttriValueElem)
     dialogAttriValueElem.close();
+
+  if(dialogSubCatElem)
+    dialogSubCatElem.close();
 
 }
 
@@ -308,6 +313,89 @@ function populateAttributeDropdown() {
   attributeSelectElem.add(optionElem);
 
   attribute.attribute.forEach((value, index) => {
+    let optionElem = document.createElement('option');
+    optionElem.text = value.name;
+    optionElem.value = value.id;
+    attributeSelectElem.add(optionElem);
+  });
+
+  attributeSelectElem.selectedIndex = 0;
+  attributeSelectElem.options[0].disabled = true;
+}
+//End of value dialog
+
+//Subcategory dialog
+//Add Subcategory dialog
+let dialogSubCatElem;
+export function renderSubcategoryDialog(title) {
+  const dialogContainer = document.querySelector('.add-subcategory-dialog-container');
+  dialogContainer.innerHTML = 
+  `
+    <form class = "attribute-dialog"  method="dialog">
+      <header class="flex justify-between border-b border-b-gray-300 pb-5">
+        <p>Create new ${title.toLowerCase()}</p>
+        <button>
+          X
+        </button>
+      </header>
+      <div class="grid grid-cols-2 gap-4 mt-5">
+        <section class="col-span-2 flex flex-col gap-1">
+          <label for="attribute">Category Name</label>
+          <select id="attribute" class="js-attribute-name border p-1 border-gray-300">
+             
+          </select>
+          <section class="flex gap-1 items-center mt-2 js-field-0 hidden text-xs font-light text-red-500">
+            <img class="size-4" src="/resources/mark.png" alt="">
+            <p class="">Category name is required.</p>
+          </section>
+        </section>
+        <section class="col-span-2 flex flex-col gap-1">
+          <label for="attribute-value">Subcategory</label>
+          <input class="js-attribute-value border p-1 border-gray-300" type="text" name="attribute-value" id="">
+          <section class="flex gap-1 items-center mt-2 js-field-1 hidden text-xs font-light text-red-500">
+            <img class="size-4" src="/resources/mark.png" alt="">
+            <p class="">Subcategory is required.</p>
+          </section>
+        </section>
+      </div>
+      <footer class="flex gap-3 mt-5 pt-5 border-t border-t-gray-300"> 
+        <button type="button" class="js-add-subcategory-value bg-blue-600 items-center text-background p-2 flex gap-2">
+          <img class="size-5" src="/resources/plus-sign.png" alt="">Add new ${title.toLowerCase()}
+        </button>
+        <button class="border border-gray-300 p-2 px-5">
+          Cancel
+        </button>
+      </footer>
+    </form>  
+  
+  `
+  showSubcategoryDialog();
+}
+
+//Part of subcategory dialog
+function showSubcategoryDialog() {
+  dialogSubCatElem = document.querySelector('.add-subcategory-dialog-container');
+  dialogSubCatElem.showModal();
+  dialogSubCatElem.addEventListener('click', (e) => {
+    if (e.target === dialogSubCatElem) dialogSubCatElem.close();
+  });
+
+  dialogSubCatElem.addEventListener('close', () => {
+    dialogSubCatElem.close();
+  });
+  populateSubcategoryDropDown();
+}
+
+function populateSubcategoryDropDown() {
+  category.loadFromLocalStorage();
+  const attributeSelectElem = document.querySelector('.js-attribute-name');
+  
+  let optionElem = document.createElement('option');
+  optionElem.text = 'Select attribute name';
+  optionElem.value = '';
+  attributeSelectElem.add(optionElem);
+
+  category.attribute.forEach((value, index) => {
     let optionElem = document.createElement('option');
     optionElem.text = value.name;
     optionElem.value = value.id;
