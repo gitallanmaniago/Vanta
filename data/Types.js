@@ -1,10 +1,10 @@
 export class Types {
 
-  types;
+  types = [];
   #localStorageKey;
   constructor(localStorageKey) {
     this.#localStorageKey = localStorageKey;
-    loadFromLocalStorage();
+    this.loadFromLocalStorage();
   }
 
   saveToLocalStorage() {
@@ -12,7 +12,7 @@ export class Types {
   }
 
   loadFromLocalStorage() {
-    types = JSON.parse(localStorage.getItem(this.#localStorageKey)) || [{
+    this.types = JSON.parse(localStorage.getItem(this.#localStorageKey)) || [{
       id: 122,
       typeName: 'Hoodie'
     }];
