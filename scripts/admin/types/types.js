@@ -9,9 +9,9 @@ const types = new Types(TITLE);
 
 openDialogElem.addEventListener('click', () => {
   renderModalAttributes(TITLE);
-  const addTypeElem = document.querySelector(`js-add-new-${TITLE}`);
+  const addTypeElem = document.querySelector(`.js-add-new-${TITLE}`);
   addTypeElem.addEventListener('click', () => {
-    const typeName = document.querySelector(`js-attribute-${TITLE}`).value;
+    const typeName = document.querySelector(`.js-attribute-${TITLE}`).value;
     const tempValue = [typeName];
     const result = fieldChecker(tempValue);
     if(result) {
@@ -20,7 +20,7 @@ openDialogElem.addEventListener('click', () => {
         typeName
       });
       toast('Type added');
-      renderType();
+      renderType(types.searchType(''));
 
     }
   });
@@ -30,7 +30,7 @@ function renderType(data) {
   const container = document.querySelector('.type-container');
   let containerHTML = '';
 
-  types.types.forEach((type) => { 
+  data.forEach((type) => { 
     containerHTML += `
       <tr class="hover:bg-gray-50">
       <td class="border-b border-l border-gray-300 px-4 py-2">${type.id}</td>
@@ -46,4 +46,13 @@ function renderType(data) {
   container.innerHTML = containerHTML;
 }
 
-renderType();
+renderType(types.searchType(''));
+searchType();
+
+function searchType() {
+  const searchElem = document.querySelector('.js-search-type');
+  searchElem.addEventListener('input', () => {
+    const searchWord = searchElem.value.trim();
+    renderType(types.searchType(searchWord));
+  });
+}

@@ -8,7 +8,7 @@ export class Types {
   }
 
   saveToLocalStorage() {
-    localStorage.setItem(this.#localStorageKey, JSON.stringify(types));
+    localStorage.setItem(this.#localStorageKey, JSON.stringify(this.types));
   }
 
   loadFromLocalStorage() {
@@ -21,6 +21,23 @@ export class Types {
   insertType(data) {
     this.types.push(data);
     this.saveToLocalStorage();
+  }
+
+  searchType(char) {
+    let tempValue = [];
+
+    if(!char)
+      return this.types;
+
+    if(char) {
+      this.types.forEach((value) => {
+        const typeName = value.typeName.toLowerCase();
+        if(typeName.includes(char.toLowerCase()))
+          tempValue.push(value);
+      });
+    }
+    
+    return tempValue;
   }
 
 }
