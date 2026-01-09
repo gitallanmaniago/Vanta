@@ -1,6 +1,6 @@
 import { Types } from "../../../data/Types";
 import { fieldChecker } from "../../shared/fieldcheck";
-import { renderModalAttributes, toast } from "../shared/admin-modal";
+import { deleteDialog, renderModalAttributes, toast } from "../shared/admin-modal";
 
 const openDialogElem = document.querySelector('.js-add-type');
 
@@ -44,6 +44,7 @@ function renderType(data) {
     `
   });
   container.innerHTML = containerHTML;
+  deleteType();
 }
 
 renderType(types.searchType(''));
@@ -54,5 +55,25 @@ function searchType() {
   searchElem.addEventListener('input', () => {
     const searchWord = searchElem.value.trim();
     renderType(types.searchType(searchWord));
+  });
+}
+
+function deleteType() {
+  const openDeleteDialogElem = document.querySelectorAll('.js-delete-type');
+  
+  openDeleteDialogElem.forEach((deleteType) => {
+    deleteType.addEventListener('click', () => {
+      const typeId = deleteType.dataset.typeId;
+      deleteDialog();
+      const deleteElem = document.querySelector('.js-delete-product');
+
+      deleteElem.addEventListener('click', () => {
+        const result = types.deleteType(typeId);
+        if(result){
+          toast('Type deleted ');
+          renderType(types.searchType(''));
+        }
+      });
+    });
   });
 }

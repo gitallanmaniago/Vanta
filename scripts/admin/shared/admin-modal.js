@@ -184,6 +184,7 @@ function showDeleteDialog() {
 
 //ATTRIBUTES DIALOG
 //ADD CATEGORY DIALOG
+//ADD TYPES DIALOG
 let dialogAttributesElem;
 export function renderModalAttributes(title) {
   const dialogContainer = document.querySelector('.add-attibutes-dialog-container');
