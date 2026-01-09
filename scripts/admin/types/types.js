@@ -20,10 +20,30 @@ openDialogElem.addEventListener('click', () => {
         typeName
       });
       toast('Type added');
+      renderType();
+
     }
   });
 });
 
 function renderType(data) {
+  const container = document.querySelector('.type-container');
+  let containerHTML = '';
 
+  types.types.forEach((type) => { 
+    containerHTML += `
+      <tr class="hover:bg-gray-50">
+      <td class="border-b border-l border-gray-300 px-4 py-2">${type.id}</td>
+      <td class="border-b border-gray-300 px-4 py-2">${type.typeName}</td>
+      <td class="border-b border-r border-gray-300 px-4 py-2 ">
+        <button class="js-delete-type cursor-pointer" data-type-id=${type.id}>
+          Delete
+        </button>
+      </td>
+    </tr>
+    `
+  });
+  container.innerHTML = containerHTML;
 }
+
+renderType();
