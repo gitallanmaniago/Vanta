@@ -97,8 +97,8 @@
       <a class="" href="/html/admin/inventory/inventory.html">INVENTORY</a>
       <a class="" href="/html/admin/products/products.html">PRODUCTS</a>
       <a class="" href="/html/admin/category/category.html">CATEGORY</a>
-      <a class="underline font-bold" href="/html/admin/attributes/attributes.html">ATTRIBUTES</a>
-      <a class="" href="/html/admin/type/type.html">TYPE</a>
+      <a class="" href="/html/admin/attributes/attributes.html">ATTRIBUTES</a>
+      <a class="underline font-bold" href="">TYPE</a>
       <p class="">REPORTS</p>
       <p class="">ACTIVITY LOG</p>
       <p class="">USERS</p>
@@ -110,20 +110,19 @@
     <section class="flex flex-col gap-5">
       <section class="flex flex-col gap-5">
         <div class="flex justify-between gap-2 flex-wrap items-center">
-          <p class="text-xl font-header">CATEGORIES</p>
+          <p class="text-xl font-header">PRODUCT TYPE</p>
         </div>
       </section>
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
-          <div class="min-w-0 flex flex-col gap-2">
+      <div class="min-w-0 flex flex-col gap-2">
             <header class="flex flex-wrap items-center justify-between">
-              <p class="text-base font-header">Attribute</p>
+              <p class="text-base font-header">TYPES</p>
               <section class="flex gap-2">
                 <div class="flex items-center gap-2 border border-gray-300 rounded-md p-2 max-[640px]:p-1">
                   <img class="size-4" src="/resources/search.png" alt="">
-                  <input class="js-search-attribute outline-0" placeholder="Search attribute..." type="text" name="" id="">
+                  <input class="js-search-type outline-0" placeholder="Search type..." type="text" name="" id="">
                 </div>
-                <button class="js-add-attribute bg-green-500 p-2 border text-background">
-                  Add attribute
+                <button class="js-add-type bg-green-500 p-2 border text-background">
+                  Add type
                 </button>
               </section>
             </header>
@@ -132,51 +131,17 @@
               <table class="min-w-175 w-full border-collapse">
               <thead>
                 <tr class="text-left">
-                  <th class="border-b border-l border-t border-gray-300 px-4 py-2">Attribute Id</th>
-                  <th class="border-b border-t border-gray-300 px-4 py-2">Attribute Name</th>
+                  <th class="border-b border-l border-t border-gray-300 px-4 py-2">Type Id</th>
+                  <th class="border-b border-t border-gray-300 px-4 py-2">Type Name</th>
                   <th class="border-b border-t border-r border-gray-300 px-4 py-2">Action</th>
                 </tr>
               </thead>
-              <tbody class="attribute-container">
+              <tbody class="type-container">
                 
               </tbody>
             </table>
             </section>
           </div>
-          <div class="min-w-0 min-h-[50%] flex flex-col gap-2">
-            <header class="flex flex-wrap items-center justify-between">
-              <p class="text-base font-header">Attribute Values</p>
-              <section class="flex gap-2">
-                <div class="flex items-center gap-2 border border-gray-300 rounded-md p-2 max-[640px]:p-1">
-                  <img class="size-4" src="/resources/search.png" alt="">
-                  <input class="js-search-values outline-0" placeholder="Search values..." type="text" name="" id="">
-                </div>
-                <button class="js-add-values bg-green-500 p-2 border text-background">
-                  Add values
-                </button>
-              </section>
-            </header>
-
-            <section class="overflow-x-auto">
-              <table class="min-w-175 w-full border-collapse">
-              <thead>
-                <tr class="text-left">
-                  <th class="border-b border-l border-t border-gray-300 px-4 py-2">Value Id</th>
-                  <th class="border-b border-t border-gray-300 px-4 py-2">Attribute Name</th>
-                  <th class="border-b border-t border-gray-300 px-4 py-2">Value Name</th>
-                  <th class="border-b border-t border-gray-300 px-4 py-2">Action</th>
-                </tr>
-              </thead>
-              <tbody class="attribute-values-container">
-                
-              </tbody>
-            </table>
-            </section>
-          </div>
-        </section>
-      </div>
-      
-    
     </section>
   </main>
 
@@ -201,5 +166,5 @@
 </body>
 <script type="module" src="/src/main.js"></script>
 <script type="module" src="/scripts/shared/header.js"></script>
-<script type="module" src="/scripts/admin/attributes/attribute.js"></script>
+<script type="module" src="/scripts/admin/types/types.js"></script>
 </html>
