@@ -25,5 +25,5 @@ openDialogElem.addEventListener('click', () => {
 });
 
 function renderType(data) {
-  
+
 }
