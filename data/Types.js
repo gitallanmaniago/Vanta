@@ -36,8 +36,20 @@ export class Types {
           tempValue.push(value);
       });
     }
-    
     return tempValue;
+  }
+
+  deleteType(typeId) {
+    let result = false;
+
+    this.types.forEach((type, index) => {
+      if(Number(type.id) === Number(typeId)){
+        this.types.splice(index, 1);
+        result = true;
+      }
+    });
+    this.saveToLocalStorage();
+    return result;
   }
 
 }
