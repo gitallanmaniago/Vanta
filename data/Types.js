@@ -39,7 +39,7 @@ export class Types {
     return tempValue;
   }
 
-  deleteType(typeId) {
+  deleteType(typeId, subcategoryId) {
     let result = false;
 
     this.types.forEach((type, index) => {
@@ -48,8 +48,23 @@ export class Types {
         result = true;
       }
     });
+
+    if(subcategoryId){
+      this.types = this.types.filter(value => Number(value.subcategoryId) !== Number(subcategoryId));
+    }
+
     this.saveToLocalStorage();
     return result;
+  }
+
+  getTypeBasedOnSubcategory(subcategoryId) {
+    let tempValue = []
+    this.types.forEach((value) => {
+      if(Number(value.subcategoryId) === Number(subcategoryId))
+        tempValue.push(value);
+    });
+
+    return tempValue;
   }
 
 }

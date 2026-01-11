@@ -57,8 +57,12 @@ export class Subcategory {
     return result;
   }
 
-   getMatchingSubcategory(id) {
+  getMatchingSubcategory(id) {
     return this.subcategoryData.find(item => item.id === Number(id)) || null;
   }
 
+  getSubcategoryByCatId(categoryId) {
+    const tempValue = this.subcategoryData.filter(value => Number(value.categoryId) === Number(categoryId)) || null;
+    return tempValue; 
+  }
 }

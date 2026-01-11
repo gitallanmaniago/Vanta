@@ -34,7 +34,6 @@ function renderType(data) {
   let containerHTML = '';
 
   data.forEach((type) => {
-    console.log(type);
     containerHTML += `
       <tr class="hover:bg-gray-50">
       <td class="border-b border-l border-gray-300 px-4 py-2">${type.id}</td>

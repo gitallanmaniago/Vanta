@@ -1,13 +1,19 @@
-import { Products } from "../../../data/products.js";
+import { Products } from "../../../data/Products.js";
+import { Subcategory } from "../../../data/Subcategory.js";
+import { Types } from "../../../data/Types.js";
 import { fieldChecker } from "../../shared/fieldcheck.js";
-import { deleteDialog, renderModalProduct, toast } from "../shared/admin-modal.js";
+import { deleteDialog, renderModalProduct, toast, populateCategoryDropdown } from "../shared/admin-modal.js";
 
 const products = new Products('Products');
+const subcategory = new Subcategory('Subcategory');
+const types = new Types('Type');
+let attributeSelectElem;
+let subcategoryElem;
+let typeSelectElem;
 
 function renderProducts(data) {
   const container = document.querySelector('.products-container');
   let containerHTML = '';
-  products.loadFromLocalStorage();
 
   data.forEach((items) => {
   containerHTML += 
@@ -15,7 +21,7 @@ function renderProducts(data) {
     <tr class="hover:bg-gray-50">
       <td class="border-b border-l border-gray-300 px-4 py-2">${items.name}</td>
       <td class="border-b border-gray-300 px-4 py-2">Maria Anders</td>
-      <td class="border-b border-gray-300 px-4 py-2">${items.description}</td>
+      <td class="max-w-[150px] truncate border-b border-gray-300 px-4 py-2">${items.description}</td>
       <td class="border-b border-gray-300 px-4 py-2">Germany</td>
       <td class="border-b border-r border-gray-300 px-4 py-2 ">
         <button class="js-view-button block cursor-pointer" data-product-id=${items.id}>
@@ -54,6 +60,8 @@ function initActions(){
 const addProductElem = document.querySelector('.js-add-product');
 addProductElem.addEventListener('click', () => {
   renderModalProduct();
+  populateCategoryDropdown();
+  initDropdowns();
   const addNewProduct = document.querySelector('.js-add-new-product');
     addNewProduct.addEventListener('click', () => {
       validateUserInput();
@@ -62,23 +70,27 @@ addProductElem.addEventListener('click', () => {
 
 function validateUserInput() {
   const name = document.querySelector('.js-product-name').value;
-  const type = document.querySelector('.js-product-type').value;
-  const category = document.querySelector('.js-product-category').value;
+  const descriptionHeader = document.querySelector('.js-description-header').value;
   const description = document.querySelector('.js-product-description').value;
+  const categoryId = attributeSelectElem.value;
+  const subcategoryId = subcategoryElem.value;
+  const typeId = typeSelectElem.value
 
-  const tempValue = [name, type, category, description];
+  const tempValue = [name, categoryId , subcategoryId, descriptionHeader, description];
   const result = fieldChecker(tempValue);
 
   if(result) {
     products.insertProducts({
       id: Math.random(),
       name,
-      type,
-      category,
+      categoryId,
+      subcategoryId,
+      typeId: typeId || null,
+      descriptionHeader,
       description
     });
     toast('Add product');
-    renderProducts(searchProduct(''));
+    renderProducts(products.searchProduct(''));
   }
 }
 
@@ -107,5 +119,28 @@ function searchProduct() {
   });
 }
 
+function populateDropdown(dropdown, data) {
+  dropdown.innerHTML = '';
+  data.forEach((value, index) => {
+    let optionElem = document.createElement('option');
+    optionElem.text = value.attributeValue || value.typeName;
+    optionElem.value = value.id;
+    dropdown.add(optionElem);
+  });
+}
+
+function initDropdowns() {
+  attributeSelectElem = document.querySelector('.js-attribute-name');
+  subcategoryElem = document.querySelector('.js-product-subcategory');
+  typeSelectElem = document.querySelector('.js-product-type');
+
+ attributeSelectElem.addEventListener('change', () => {
+   populateDropdown(subcategoryElem, subcategory.getSubcategoryByCatId(attributeSelectElem.value));
+   typeSelectElem.innerHTML = '';
+ });
+ subcategoryElem.addEventListener('change', () => {
+    populateDropdown(typeSelectElem, types.getTypeBasedOnSubcategory(subcategoryElem.value));
+ });
+}
 
 

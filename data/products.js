@@ -38,6 +38,7 @@ export class Products {
   }
 
   insertProducts(data) {
+    console.log(data);
     this.products.push(data);
     this.saveToLocalStorage();
   }

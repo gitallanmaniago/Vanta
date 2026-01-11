@@ -30,37 +30,46 @@ export function renderModalProduct() {
           </section>
         </section>
         <section class="col-span-2 sm:col-span-1 flex flex-col gap-1">
-          <label for="product-type">Product Type</label>
-          <select id="product-type" class="js-product-type border p-1 border-gray-300">
-              <option selected value="">Select type</option>
-              <option value="TV">TV/Monitors</option>
-              <option value="PC">PC</option>
-              <option value="GA">Gaming/Console</option>
-              <option value="PH">Phones</option>
+          <label for="product-category">Category</label>
+          <select id="product-category" class="js-product-category js-attribute-name border p-1 border-gray-300">
+              
           </select>
           <section class="flex gap-1 items-center mt-2 js-field-1 hidden text-xs font-light text-red-500">
-            <img class="size-4" src="/resources/mark.png" alt="">
-            <p class="">Product type is required.</p>
-          </section>
-        </section>
-        <section class="col-span-2 sm:col-span-1 flex flex-col gap-1">
-          <label for="product-cat">Category</label>
-          <select id="product-cat" class="js-product-category border border-gray-300 p-1">
-              <option selected value="">Select category</option>
-              <option value="TV">TV/Monitors</option>
-              <option value="PC">PC</option>
-              <option value="GA">Gaming/Console</option>
-              <option value="PH">Phones</option>
-          </select>
-          <section class="flex gap-1 items-center mt-2 js-field-2 hidden text-xs font-light text-red-500">
             <img class="size-4" src="/resources/mark.png" alt="">
             <p class="">Product category is required.</p>
           </section>
         </section>
+        <section class="col-span-2 sm:col-span-1 flex flex-col gap-1">
+          <label for="product-subcategory">Subcategory</label>
+          <select id="product-subcategory" class="js-product-subcategory border p-1 border-gray-300">
+              
+          </select>
+          <section class="flex gap-1 items-center mt-2 js-field-2 hidden text-xs font-light text-red-500">
+            <img class="size-4" src="/resources/mark.png" alt="">
+            <p class="">Subcategory is required.</p>
+          </section>
+        </section>
         <section class="col-span-2 flex flex-col gap-1">
+          <label for="product-type">Product Type</label>
+          <select id="product-type" class="js-product-type border border-gray-300 p-1">
+              
+          </select>
+          <section class="flex gap-1 items-center mt-2 hidden text-xs font-light text-red-500">
+            <img class="size-4" src="/resources/mark.png" alt="">
+            <p class="">Product type is required.</p>
+          </section>
+        </section>
+        <section class="col-span-2 flex flex-col gap-1">
+          <label for="description">Description Header</label>
+          <input class="js-description-header border p-1 border-gray-300" type="text" name="product-name" id="">
+          <section class="flex gap-1 items-center mt-2 js-field-3 hidden text-xs font-light text-red-500">
+            <img class="size-4" src="/resources/mark.png" alt="">
+            <p class="">Description Header is required.</p>
+          </section>
+          
           <label for="description">Product Description</label>
           <textarea class="js-product-description p-1 border border-gray-300" name="description" id=""></textarea>
-          <section class="flex gap-1 items-center mt-2 js-field-3 hidden text-xs font-light text-red-500">
+          <section class="flex gap-1 items-center mt-2 js-field-4 hidden text-xs font-light text-red-500">
             <img class="size-4" src="/resources/mark.png" alt="">
             <p class="">Product description is required.</p>
           </section>
@@ -308,7 +317,7 @@ function showValueDialog() {
   populateAttributeDropdown();
 }
 
-function populateAttributeDropdown() {
+export function populateAttributeDropdown() {
   attribute.loadFromLocalStorage();
   const attributeSelectElem = document.querySelector('.js-attribute-name');
   
@@ -388,10 +397,10 @@ function showSubcategoryDialog() {
   dialogSubCatElem.addEventListener('close', () => {
     dialogSubCatElem.close();
   });
-  populateSubcategoryDropDown();
+  populateCategoryDropdown();
 }
 
-function populateSubcategoryDropDown() {
+export function populateCategoryDropdown() {
   category.loadFromLocalStorage();
   const attributeSelectElem = document.querySelector('.js-attribute-name');
   

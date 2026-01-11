@@ -1,5 +1,6 @@
 import { Attributes } from "../../../data/Attributes.js";
 import { Subcategory } from "../../../data/Subcategory.js";
+import { Types } from "../../../data/Types.js";
 import { fieldChecker } from "../../shared/fieldcheck.js";
 import { deleteDialog, renderModalAttributes, renderSubcategoryDialog, toast } from "../shared/admin-modal.js";
 
@@ -8,6 +9,7 @@ const SUBTITLE = 'Subcategory';
 
 const attribute = new Attributes(TITLE);
 const subcategory = new Subcategory(SUBTITLE);
+const types = new Types('Type');
 const openCatElem = document.querySelector('.js-add-category');
 
 openCatElem.addEventListener('click', () => {
@@ -171,9 +173,10 @@ function deleteSubcategoryValue(module, id) {
       if(module) { 
         result = attribute.deleteAttribute(id); 
         subcategory.deleteSubcategory(null, id);
-      } else
-        result = subcategory.deleteSubcategory(id); 
-    
+      } else {
+        result = subcategory.deleteSubcategory(id);
+        types.deleteType(null, id);
+      }
       if(result){
         toast('Field deleted');
         renderCategory(attribute.searchAttribute(''));
