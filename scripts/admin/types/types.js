@@ -1,22 +1,25 @@
+import { Subcategory } from "../../../data/Subcategory";
 import { Types } from "../../../data/Types";
 import { fieldChecker } from "../../shared/fieldcheck";
-import { deleteDialog, renderModalAttributes, toast } from "../shared/admin-modal";
+import { deleteDialog, renderModalAttributes, toast, renderTypeDialog } from "../shared/admin-modal";
 
 const openDialogElem = document.querySelector('.js-add-type');
-
+const subcategory = new Subcategory('Subcategory');
 const TITLE = 'Type';
 const types = new Types(TITLE);
 
 openDialogElem.addEventListener('click', () => {
-  renderModalAttributes(TITLE);
-  const addTypeElem = document.querySelector(`.js-add-new-${TITLE}`);
+  renderTypeDialog(TITLE);
+  const addTypeElem = document.querySelector(`.js-add-type-value`);
   addTypeElem.addEventListener('click', () => {
-    const typeName = document.querySelector(`.js-attribute-${TITLE}`).value;
+    const dropdownValue = getSelectedValues();
+    const typeName = document.querySelector(`.js-attribute-value`).value;
     const tempValue = [typeName];
-    const result = fieldChecker(tempValue);
+    const result = fieldChecker(tempValue, dropdownValue);
     if(result) {
       types.insertType({
         id: Math.random(),
+        subcategoryId: dropdownValue,
         typeName
       });
       toast('Type added');
@@ -30,10 +33,12 @@ function renderType(data) {
   const container = document.querySelector('.type-container');
   let containerHTML = '';
 
-  data.forEach((type) => { 
+  data.forEach((type) => {
+    console.log(type);
     containerHTML += `
       <tr class="hover:bg-gray-50">
       <td class="border-b border-l border-gray-300 px-4 py-2">${type.id}</td>
+      <td class="border-b border-gray-300 px-4 py-2">${subcategory.getMatchingSubcategory(type.subcategoryId)?.attributeValue || ''}</td>
       <td class="border-b border-gray-300 px-4 py-2">${type.typeName}</td>
       <td class="border-b border-r border-gray-300 px-4 py-2 ">
         <button class="js-delete-type cursor-pointer" data-type-id=${type.id}>
@@ -76,4 +81,10 @@ function deleteType() {
       });
     });
   });
+}
+
+
+function getSelectedValues() {
+  const attributeSelectElem = document.querySelector('.js-attribute-name');
+  return attributeSelectElem.value;
 }

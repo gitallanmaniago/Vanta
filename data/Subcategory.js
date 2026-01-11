@@ -57,4 +57,8 @@ export class Subcategory {
     return result;
   }
 
+   getMatchingSubcategory(id) {
+    return this.subcategoryData.find(item => item.id === Number(id)) || null;
+  }
+
 }
