@@ -67,4 +67,9 @@ export class Types {
     return tempValue;
   }
 
+  getMatchingType(id) {
+    
+    return this.types.find(item => item.id === Number(id)) || null;
+  }
+
 }

@@ -96,9 +96,11 @@
       <p class="">DASHBOARD</p>
       <a class="underline font-bold" href="/html/admin/inventory/inventory.html">INVENTORY</a>
       <a class="" href="/html/admin/products/products.html">PRODUCTS</a>
+      <a class="" href="/html/admin/category/category.html">CATEGORY</a>
       <a class="" href="/html/admin/attributes/attributes.html">ATTRIBUTES</a>
+      <a class="" href="/html/admin/type/type.html">TYPE</a>
       <p class="">REPORTS</p>
-      <p class="">ACTIVITY LOG</p>
+      <p class="">ACTIVITY LOG</p>  
       <p class="">USERS</p>
       <p class="js-logout-user underline text-base mt-auto">
         LOGOUT
@@ -108,14 +110,14 @@
     <section class="flex flex-col gap-5">
       <section class="flex flex-col gap-5">
         <div class="flex justify-between gap-2 flex-wrap items-center">
-          <p class="text-xl font-header">PRODUCTS</p>
+          <p class="text-xl font-header">INVENTORY</p>
           <div class="flex gap-2">
             <div class="flex items-center gap-2 border border-gray-300 rounded-md p-2">
               <img class="size-4" src="/resources/search.png" alt="">
-              <input class="outline-0" placeholder="Search product..." type="text" name="" id="">
+              <input class="outline-0" placeholder="Search inventory..." type="text" name="" id="">
             </div>
-            <button class="bg-green-500 p-2 border text-background">
-              Add product
+            <button class="js-add-item bg-green-500 p-2 border text-background">
+              Add item
             </button>
           </div>
         </div>
@@ -142,8 +144,15 @@
     </section>
     
     </section>
+    
   </main>
- 
+
+  <dialog class = "add-inventory-dialog m-auto rounded-lg p-5 w-[90%] max-w-md backdrop:bg-gray-900/50"> 
+  </dialog>
+  <div class="toast-notif-container"></div>
+  <dialog class = "delete-product-dialog m-auto rounded-lg p-5 w-[90%] max-w-md backdrop:bg-gray-900/50">
+  </dialog>
+
   <footer class="bg-background text-primary font-bold text-sm p-5">
     <p>
       SALE
@@ -156,4 +165,6 @@
 </body>
 <script type="module" src="/src/main.js"></script>
 <script type="module" src="/scripts/shared/header.js"></script>
+<script type="module" src="/scripts/admin/inventory/inventory.js"></script>
+
 </html>

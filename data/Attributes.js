@@ -53,4 +53,8 @@ export class Attributes {
     this.saveToLocalStorage();
     return result;
   }
+
+  nameToLowerCase(name){
+    return name.toLowerCase();
+  }
 }

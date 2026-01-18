@@ -1,8 +1,37 @@
 import { Attributes } from "../../../data/Attributes";
 import { Subcategory } from "../../../data/Subcategory";
+import { Types } from "../../../data/Types";
+
 const attribute = new Attributes('Attribute');
 const category = new Attributes('Category');
 const subcategory = new Subcategory('Subcategory');
+const types = new Types('Type');
+
+function formatCurrency(jsfield) {
+  const input = document.querySelector(jsfield);
+
+  input.addEventListener("input", () => {
+  input.value = input.value
+    .replace(/[^0-9.]/g, "")
+    .replace(/(\..*)\./g, "$1");
+  });
+  let rawAmount = 0;
+
+  input.addEventListener("blur", () => {
+    const value = input.value.replace(/[^0-9.]/g, "");
+    rawAmount = Math.round(parseFloat(value) * 100) || 0;
+    input.dataset.value =  rawAmount;
+    input.value = (rawAmount / 100).toLocaleString("en-AU", {
+      style: "currency",
+      currency: "AUD"
+    });
+  });
+
+  // Remove formatting when focusing again
+  input.addEventListener("focus", () => {
+    input.value = input.value.replace(/[^0-9.]/g, "");
+  });
+}
 
 
 //PRODUCTS DIALOG
@@ -59,17 +88,35 @@ export function renderModalProduct() {
             <p class="">Product type is required.</p>
           </section>
         </section>
+
+        <section class="col-span-2 sm:col-span-1 flex flex-col gap-1">
+          <label for="product-price">Price</label>
+          <input class="js-product-price border p-1 border-gray-300" type="text" name="product-price" id="">
+          <section class="flex gap-1 items-center mt-2 js-field-3 hidden text-xs font-light text-red-500">
+            <img class="size-4" src="/resources/mark.png" alt="">
+            <p class="">Price is required.</p>
+          </section>
+        </section>
+        <section class="col-span-2 sm:col-span-1 flex flex-col gap-1">
+          <label for="product-markup">Markup</label>
+          <input class="js-product-markup border p-1 border-gray-300" type="text" name="product-markup" id="">
+          <section class="flex gap-1 items-center mt-2 js-field-4 hidden text-xs font-light text-red-500">
+            <img class="size-4" src="/resources/mark.png" alt="">
+            <p class="">Markup is required.</p>
+          </section>
+        </section>
+        
         <section class="col-span-2 flex flex-col gap-1">
           <label for="description">Description Header</label>
           <input class="js-description-header border p-1 border-gray-300" type="text" name="product-name" id="">
-          <section class="flex gap-1 items-center mt-2 js-field-3 hidden text-xs font-light text-red-500">
+          <section class="flex gap-1 items-center mt-2 js-field-5 hidden text-xs font-light text-red-500">
             <img class="size-4" src="/resources/mark.png" alt="">
             <p class="">Description Header is required.</p>
           </section>
           
           <label for="description">Product Description</label>
           <textarea class="js-product-description p-1 border border-gray-300" name="description" id=""></textarea>
-          <section class="flex gap-1 items-center mt-2 js-field-4 hidden text-xs font-light text-red-500">
+          <section class="flex gap-1 items-center mt-2 js-field-6 hidden text-xs font-light text-red-500">
             <img class="size-4" src="/resources/mark.png" alt="">
             <p class="">Product description is required.</p>
           </section>
@@ -87,6 +134,9 @@ export function renderModalProduct() {
   
   `
   showProductsDialog();
+  formatCurrency('.js-product-price');
+  formatCurrency('.js-product-markup');
+
 }
 
 //PART OF ADD PRODUCT DIALOG
@@ -506,3 +556,112 @@ function populateTypeDropdown() {
 }
 //End of value dialog
 
+let dialogInventoryElem;
+export function renderInventoryDialog() {
+  const dialogContainer = document.querySelector('.add-inventory-dialog');
+
+  dialogContainer.innerHTML = 
+  `
+    <form class = "cart-dialog-container"  method="dialog">
+      <header class="flex justify-between border-b border-b-gray-300 pb-5">
+        <p>Create new product</p>
+        <button>
+          X
+        </button>
+      </header>
+      <div class="grid grid-cols-2 gap-4 mt-5">
+        <section class="col-span-2 flex flex-col gap-1">
+          <label for="product-name">Select Product</label>
+          <select id="product-name" class="js-product-id js-attribute-name border p-1 border-gray-300">
+              
+          </select>
+          <section class="flex gap-1 items-center mt-2 js-field-0 hidden text-xs font-light text-red-500">
+            <img class="size-4" src="/resources/mark.png" alt="">
+            <p class="">Product is required.</p>
+          </section>
+        </section>
+
+        ${insertAttributeContainers()}
+
+        <section class="col-span-2 flex flex-col gap-1">
+          <label for="description">Description Header</label>
+          <input class="js-description-header border p-1 border-gray-300" type="text" name="product-name" id="">
+          <section class="flex gap-1 items-center mt-2 hidden text-xs font-light text-red-500">
+            <img class="size-4" src="/resources/mark.png" alt="">
+            <p class="">Description Header is required.</p>
+          </section>
+          
+          <label for="description">Product Description</label>
+          <textarea class="js-product-description p-1 border border-gray-300" name="description" id=""></textarea>
+          <section class="flex gap-1 items-center mt-2  hidden text-xs font-light text-red-500">
+            <img class="size-4" src="/resources/mark.png" alt="">
+            <p class="">Product description is required.</p>
+          </section>
+        </section>
+      </div>
+      <footer class="flex gap-3 mt-5 pt-5 border-t border-t-gray-300"> 
+        <button type="button" class="js-add-new-product bg-blue-600 items-center text-background p-2 flex gap-2">
+          <img class="size-5" src="/resources/plus-sign.png" alt="">Add new product
+        </button>
+        <button class="border border-gray-300 p-2 px-5">
+          Cancel
+        </button>
+      </footer>
+    </form>  
+  
+  `
+  showInventoryDialog();
+  dynamicAttributeSelection();
+  console.log(dialogContainer);
+}
+
+//PART OF ADD INVEOTRY DIALOG
+function showInventoryDialog() {
+  dialogInventoryElem = document.querySelector('.add-inventory-dialog');
+  dialogInventoryElem.showModal();
+  dialogInventoryElem.addEventListener('click', (e) => {
+    if (e.target === dialogInventoryElem) dialogInventoryElem.close();
+  });
+
+  dialogInventoryElem.addEventListener('close', () => {
+    dialogInventoryElem.close();
+  });
+}
+
+function insertAttributeContainers() {
+  let containerHTML = '';
+  attribute.attribute.forEach((values, index) => {
+    
+    containerHTML += `
+      <section class="js-item-${attribute.nameToLowerCase(values.name)} col-span-2 sm:col-span-1 flex flex-col gap-1" data-field-No = ${index} >
+      </section>
+    `
+  });
+
+  return containerHTML;
+}
+
+function dynamicAttributeSelection() {
+  attribute.attribute.forEach((values) => {
+    const container = document.querySelector(`.js-item-${attribute.nameToLowerCase(values.name)}`);
+    let fieldNo = container.dataset.fieldNo;
+    fieldNo++;
+    let containerHTML = '';
+
+    containerHTML += `
+
+      <label for="item-${attribute.nameToLowerCase(values.name)}">${values.name}</label>
+      <select id="item-${attribute.nameToLowerCase(values.name)}" class="js-item-${attribute.nameToLowerCase(values.name)} border p-1 border-gray-300">
+          
+      </select>
+      <section class="flex gap-1 items-center mt-2 js-field-${fieldNo} hidden text-xs font-light text-red-500">
+        <img class="size-4" src="/resources/mark.png" alt="">
+        <p class="">${values.name} is required.</p>
+      </section>
+
+    `
+    container.innerHTML = containerHTML;
+  });
+
+  
+}
