@@ -588,24 +588,27 @@ export function renderInventoryDialog() {
         ${insertAttributeContainers()}
 
         <section class="col-span-2 flex flex-col gap-1">
-          <label for="description">Description Header</label>
+          <label for="sku">Product SKU</label>
+          <input class="js-item-sku border p-1 border-gray-300" type="text" name="sku" id="">
+        </section>
+
+        <section class="col-span-1 flex flex-col gap-1">
+          <label for="description">Quantity</label>
           <input class="js-description-header border p-1 border-gray-300" type="text" name="product-name" id="">
           <section class="flex gap-1 items-center mt-2 hidden text-xs font-light text-red-500">
             <img class="size-4" src="/resources/mark.png" alt="">
-            <p class="">Description Header is required.</p>
+            <p class="">Quantity is required.</p>
           </section>
-          
-          <label for="description">Product Description</label>
-          <textarea class="js-product-description p-1 border border-gray-300" name="description" id=""></textarea>
-          <section class="flex gap-1 items-center mt-2  hidden text-xs font-light text-red-500">
-            <img class="size-4" src="/resources/mark.png" alt="">
-            <p class="">Product description is required.</p>
-          </section>
+        </section>
+
+        <section class="col-span-1 flex flex-col gap-1">
+          <label for="description">Stock Threshold</label>
+          <input class="js-description-header border p-1 border-gray-300" type="text" name="product-name" id="">
         </section>
       </div>
       <footer class="flex gap-3 mt-5 pt-5 border-t border-t-gray-300"> 
         <button type="button" class="js-add-new-product bg-blue-600 items-center text-background p-2 flex gap-2">
-          <img class="size-5" src="/resources/plus-sign.png" alt="">Add new product
+          <img class="size-5" src="/resources/plus-sign.png" alt="">Add inventory
         </button>
         <button class="border border-gray-300 p-2 px-5">
           Cancel
@@ -615,8 +618,10 @@ export function renderInventoryDialog() {
   
   `
   showInventoryDialog();
+  populateItemDynamicDropdown(null, 'product');
   dynamicAttributeSelection();
-  populateItemDropdowns();
+
+  // generateSKU();
 }
 
 //PART OF ADD INVEOTRY DIALOG
@@ -632,6 +637,7 @@ function showInventoryDialog() {
   });
 }
 
+const REQUIRED_SELECTORS = ['product'];
 function insertAttributeContainers() {
   let containerHTML = '';
   attribute.attribute.forEach((values, index) => {
@@ -640,10 +646,13 @@ function insertAttributeContainers() {
       <section class="js-container-${attribute.nameToLowerCase(values.name)} col-span-2 sm:col-span-1 flex flex-col gap-1" data-field-No = ${index} >
       </section>
     `
-  });
 
+    REQUIRED_SELECTORS.push(values.name);
+  });
+  
   return containerHTML;
 }
+
 
 function dynamicAttributeSelection() {
   attribute.attribute.forEach((values) => {
@@ -668,30 +677,15 @@ function dynamicAttributeSelection() {
   });
 }
 
-
-export function populateItemDropdowns() {
-  products.loadFromLocalStorage();
-  const attributeSelectElem = document.querySelector('.js-item-product');
-  
-  let optionElem = document.createElement('option');
-  optionElem.text = 'Select product name';
-  optionElem.value = '';
-  attributeSelectElem.add(optionElem);
-
-  products.products.forEach((value, index) => {
-    let optionElem = document.createElement('option');
-    optionElem.text = value.name;
-    optionElem.value = value.id;
-    attributeSelectElem.add(optionElem);
-  });
-
-  attributeSelectElem.selectedIndex = 0;
-  attributeSelectElem.options[0].disabled = true;
-}
-
 function populateItemDynamicDropdown(categoryId, selector) {
-  attributeValues.loadFromLocalStorage();
-  const tempValue = attributeValues.getMatchingAttribute(categoryId);
+  let tempValue;
+  if(categoryId) {
+    attributeValues.loadFromLocalStorage();
+    tempValue = attributeValues.getMatchingAttribute(categoryId);
+  } else {
+    products.loadFromLocalStorage();
+    tempValue = products.products;
+  }
   const attributeSelectElem = document.querySelector(`.js-item-${selector}`);
   
   let optionElem = document.createElement('option');
@@ -701,13 +695,40 @@ function populateItemDynamicDropdown(categoryId, selector) {
 
   tempValue.forEach((value, index) => {
     let optionElem = document.createElement('option');
-    optionElem.text = value.attributeValue;
+    optionElem.text = value.attributeValue || value.name;
     optionElem.value = value.id;
     attributeSelectElem.add(optionElem);
   });
 
   attributeSelectElem.selectedIndex = 0;
   attributeSelectElem.options[0].disabled = true;
+
+
+  attributeSelectElem.addEventListener('change', () => {
+    if (!areAllAttributesSelected()) return;
+
+    const sku = generateSKU();
+    document.querySelector('.js-item-sku').value = sku;
+    console.log(document.querySelector('.js-item-sku'));
+  });
 }
 
+function areAllAttributesSelected() {
+  return REQUIRED_SELECTORS.every(selector => {
+    const el = document.querySelector(`.js-item-${selector.toLowerCase()}`);
+    return el && el.value !== '';
+  });
+}
 
+function generateSKU() {
+  const parts = [];
+
+  REQUIRED_SELECTORS.forEach(selector => {
+    const el = document.querySelector(`.js-item-${selector.toLowerCase()}`);
+    if (!el || !el.value) return;
+    const text = el.options[el.selectedIndex].text;
+    parts.push(text.substring(0, 2).toUpperCase());
+  });
+
+  return parts.join('-');
+}
