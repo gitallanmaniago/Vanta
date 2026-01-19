@@ -1,11 +1,15 @@
 import { Attributes } from "../../../data/Attributes";
 import { Subcategory } from "../../../data/Subcategory";
 import { Types } from "../../../data/Types";
+import { Products } from "../../../data/Products";
+import { AttributeValues } from "../../../data/AttributeValues";
 
 const attribute = new Attributes('Attribute');
 const category = new Attributes('Category');
 const subcategory = new Subcategory('Subcategory');
 const types = new Types('Type');
+const products = new Products('Products');
+const attributeValues = new AttributeValues('AttributeValue');
 
 function formatCurrency(jsfield) {
   const input = document.querySelector(jsfield);
@@ -572,7 +576,7 @@ export function renderInventoryDialog() {
       <div class="grid grid-cols-2 gap-4 mt-5">
         <section class="col-span-2 flex flex-col gap-1">
           <label for="product-name">Select Product</label>
-          <select id="product-name" class="js-product-id js-attribute-name border p-1 border-gray-300">
+          <select id="product-name" class="js-item-product border p-1 border-gray-300">
               
           </select>
           <section class="flex gap-1 items-center mt-2 js-field-0 hidden text-xs font-light text-red-500">
@@ -612,7 +616,7 @@ export function renderInventoryDialog() {
   `
   showInventoryDialog();
   dynamicAttributeSelection();
-  console.log(dialogContainer);
+  populateItemDropdowns();
 }
 
 //PART OF ADD INVEOTRY DIALOG
@@ -633,7 +637,7 @@ function insertAttributeContainers() {
   attribute.attribute.forEach((values, index) => {
     
     containerHTML += `
-      <section class="js-item-${attribute.nameToLowerCase(values.name)} col-span-2 sm:col-span-1 flex flex-col gap-1" data-field-No = ${index} >
+      <section class="js-container-${attribute.nameToLowerCase(values.name)} col-span-2 sm:col-span-1 flex flex-col gap-1" data-field-No = ${index} >
       </section>
     `
   });
@@ -643,15 +647,13 @@ function insertAttributeContainers() {
 
 function dynamicAttributeSelection() {
   attribute.attribute.forEach((values) => {
-    const container = document.querySelector(`.js-item-${attribute.nameToLowerCase(values.name)}`);
+    const container = document.querySelector(`.js-container-${attribute.nameToLowerCase(values.name)}`);
     let fieldNo = container.dataset.fieldNo;
     fieldNo++;
     let containerHTML = '';
-
     containerHTML += `
-
-      <label for="item-${attribute.nameToLowerCase(values.name)}">${values.name}</label>
-      <select id="item-${attribute.nameToLowerCase(values.name)}" class="js-item-${attribute.nameToLowerCase(values.name)} border p-1 border-gray-300">
+      <label for="name-${attribute.nameToLowerCase(values.name)}">${values.name}</label>
+      <select id="name-${attribute.nameToLowerCase(values.name)}" class="js-item-${attribute.nameToLowerCase(values.name)} border p-1 border-gray-300">
           
       </select>
       <section class="flex gap-1 items-center mt-2 js-field-${fieldNo} hidden text-xs font-light text-red-500">
@@ -661,7 +663,51 @@ function dynamicAttributeSelection() {
 
     `
     container.innerHTML = containerHTML;
+
+    populateItemDynamicDropdown(values.id, attribute.nameToLowerCase(values.name));
+  });
+}
+
+
+export function populateItemDropdowns() {
+  products.loadFromLocalStorage();
+  const attributeSelectElem = document.querySelector('.js-item-product');
+  
+  let optionElem = document.createElement('option');
+  optionElem.text = 'Select product name';
+  optionElem.value = '';
+  attributeSelectElem.add(optionElem);
+
+  products.products.forEach((value, index) => {
+    let optionElem = document.createElement('option');
+    optionElem.text = value.name;
+    optionElem.value = value.id;
+    attributeSelectElem.add(optionElem);
   });
 
-  
+  attributeSelectElem.selectedIndex = 0;
+  attributeSelectElem.options[0].disabled = true;
 }
+
+function populateItemDynamicDropdown(categoryId, selector) {
+  attributeValues.loadFromLocalStorage();
+  const tempValue = attributeValues.getMatchingAttribute(categoryId);
+  const attributeSelectElem = document.querySelector(`.js-item-${selector}`);
+  
+  let optionElem = document.createElement('option');
+  optionElem.text = `Select ${selector}`;
+  optionElem.value = '';
+  attributeSelectElem.add(optionElem);
+
+  tempValue.forEach((value, index) => {
+    let optionElem = document.createElement('option');
+    optionElem.text = value.attributeValue;
+    optionElem.value = value.id;
+    attributeSelectElem.add(optionElem);
+  });
+
+  attributeSelectElem.selectedIndex = 0;
+  attributeSelectElem.options[0].disabled = true;
+}
+
+

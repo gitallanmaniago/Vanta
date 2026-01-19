@@ -57,4 +57,9 @@ export class AttributeValues {
     return result;
   }
 
+  getMatchingAttribute(categoryId) {
+    let tempValue;
+    return tempValue = this.attributeValues.filter(values => Number(categoryId) === Number(values.categoryId));
+  }
+
 }
