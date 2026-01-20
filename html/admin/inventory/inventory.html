@@ -107,43 +107,37 @@
       </p>
     </aside>
 
-    <section class="flex flex-col gap-5">
-      <section class="flex flex-col gap-5">
-        <div class="flex justify-between gap-2 flex-wrap items-center">
-          <p class="text-xl font-header">INVENTORY</p>
-          <div class="flex gap-2">
-            <div class="flex items-center gap-2 border border-gray-300 rounded-md p-2">
-              <img class="size-4" src="/resources/search.png" alt="">
-              <input class="outline-0" placeholder="Search inventory..." type="text" name="" id="">
-            </div>
-            <button class="js-add-item bg-green-500 p-2 border text-background">
-              Add item
-            </button>
+    <div class="flex flex-col gap-2">
+      <div class="flex gap-2 justify-between items-center flex-wrap">
+        <p class="text-base font-header">INVENTORY</p>
+        <section class="flex gap-2">
+          <div class="flex items-center gap-2 border border-gray-300 rounded-md p-2">
+            <img class="size-4" src="/resources/search.png" alt="">
+            <input class="outline-0" placeholder="Search inventory..." type="text" name="" id="">
           </div>
-        </div>
+          <button class="js-add-item bg-green-500 p-2 border text-background">
+            Add item
+          </button>
+        </section>
+      </div>
+      <section class="w-full overflow-x-auto">
+        <table class="min-w-175 w-full border-collapse">
+          <thead>
+            <tr class="text-left">
+              <th class="border-b border-l border-t border-gray-300 px-4 py-2">Product SKU</th>
+              <th class="border-b border-t border-gray-300 px-4 py-2">Product Name</th>
+              <th class="border-b border-t border-gray-300 px-4 py-2">Attribute</th>
+              <th class="border-b border-t border-gray-300 px-4 py-2">Quantity</th>
+              <th class="border-b border-t border-gray-300 px-4 py-2">Threshold</th>
+              <th class="border-b border-t border-r border-gray-300 px-4 py-2">Action</th>
+            </tr>
+          </thead>
+          <tbody class="inventory-container">
+            
+          </tbody>
+        </table>
       </section>
-     <section class="w-full overflow-x-auto">
-      <table class="min-w-175 w-full border-collapse">
-        <thead>
-          <tr class="text-left">
-            <th class="border border-gray-300 px-4 py-2">Product Name</th>
-            <th class="border border-gray-300 px-4 py-2">Product Type</th>
-            <th class="border border-gray-300 px-4 py-2">Description</th>
-            <th class="border border-gray-300 px-4 py-2">Category</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="hover:bg-gray-50">
-            <td class="border border-gray-300 px-4 py-2">Alfreds Futterkiste</td>
-            <td class="border border-gray-300 px-4 py-2">Maria Anders</td>
-            <td class="border border-gray-300 px-4 py-2">Germany</td>
-            <td class="border border-gray-300 px-4 py-2">Germany</td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
-    
-    </section>
+    </div>
     
   </main>
 

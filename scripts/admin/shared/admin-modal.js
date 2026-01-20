@@ -211,6 +211,9 @@ export function displayToast() {
   if(dialogTypeElem)
     dialogTypeElem.close();
 
+  if(dialogInventoryElem)
+    dialogInventoryElem.close();
+
 }
 
 //End of toast for product
@@ -593,17 +596,21 @@ export function renderInventoryDialog() {
         </section>
 
         <section class="col-span-1 flex flex-col gap-1">
-          <label for="description">Quantity</label>
-          <input class="js-description-header border p-1 border-gray-300" type="text" name="product-name" id="">
-          <section class="flex gap-1 items-center mt-2 hidden text-xs font-light text-red-500">
+          <label for="">Quantity</label>
+          <input class="js-item-quantity border p-1 border-gray-300" type="number" min="0" step="1" inputmode="numeric" pattern="[0-9]" name="product-name" id="">
+          <section class="flex gap-1 items-center mt-2 js-field-${attribute.attribute.length+1} hidden text-xs font-light text-red-500">
             <img class="size-4" src="/resources/mark.png" alt="">
             <p class="">Quantity is required.</p>
           </section>
         </section>
 
         <section class="col-span-1 flex flex-col gap-1">
-          <label for="description">Stock Threshold</label>
-          <input class="js-description-header border p-1 border-gray-300" type="text" name="product-name" id="">
+          <label for="">Stock Threshold</label>
+          <input class="js-item-threshold border p-1 border-gray-300" type="number" min="0" step="1" inputmode="numeric" pattern="[0-9]" name="product-name" id="">
+          <section class="flex gap-1 items-center mt-2 js-field-${attribute.attribute.length+2} hidden text-xs font-light text-red-500">
+            <img class="size-4" src="/resources/mark.png" alt="">
+            <p class="">Threshold is required.</p>
+          </section>
         </section>
       </div>
       <footer class="flex gap-3 mt-5 pt-5 border-t border-t-gray-300"> 
@@ -617,11 +624,21 @@ export function renderInventoryDialog() {
     </form>  
   
   `
+
   showInventoryDialog();
   populateItemDynamicDropdown(null, 'product');
   dynamicAttributeSelection();
+  const qtyInput = document.querySelector('.js-item-quantity');
+  const qtyThresh = document.querySelector('.js-item-threshold');
 
-  // generateSKU();
+  qtyInput.addEventListener('input', () => {
+    qtyInput.value = qtyInput.value.replace(/\D/g, '');
+  });
+
+  qtyThresh.addEventListener('input', () => {
+    qtyThresh.value = qtyThresh.value.replace(/\D/g, '');
+  });
+
 }
 
 //PART OF ADD INVEOTRY DIALOG
@@ -655,8 +672,9 @@ function insertAttributeContainers() {
 
 
 function dynamicAttributeSelection() {
+  let container = '';
   attribute.attribute.forEach((values) => {
-    const container = document.querySelector(`.js-container-${attribute.nameToLowerCase(values.name)}`);
+    container = document.querySelector(`.js-container-${attribute.nameToLowerCase(values.name)}`);
     let fieldNo = container.dataset.fieldNo;
     fieldNo++;
     let containerHTML = '';
@@ -675,6 +693,7 @@ function dynamicAttributeSelection() {
 
     populateItemDynamicDropdown(values.id, attribute.nameToLowerCase(values.name));
   });
+    
 }
 
 function populateItemDynamicDropdown(categoryId, selector) {
@@ -709,7 +728,6 @@ function populateItemDynamicDropdown(categoryId, selector) {
 
     const sku = generateSKU();
     document.querySelector('.js-item-sku').value = sku;
-    console.log(document.querySelector('.js-item-sku'));
   });
 }
 
@@ -732,3 +750,5 @@ function generateSKU() {
 
   return parts.join('-');
 }
+
+

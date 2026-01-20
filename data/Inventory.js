@@ -15,8 +15,9 @@ export class Inventory {
     this.item = JSON.parse(localStorage.getItem(this.#localStorageKey)) || [];
   }
 
-  insertIntoInventory() {
-
+  insertIntoInventory(data) {
+    this.item.push(data);
+    this.saveToLocalStorage();
   }
 
 }
