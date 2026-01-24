@@ -1,5 +1,5 @@
 export class Inventory {
-  item;
+  items;
   #localStorageKey;
 
   constructor(localStorageKey) {
@@ -8,15 +8,15 @@ export class Inventory {
   }
 
   saveToLocalStorage() {
-    localStorage.setItem(this.#localStorageKey, JSON.stringify(this.item));
+    localStorage.setItem(this.#localStorageKey, JSON.stringify(this.items));
   }
 
   loadFromLocalStorage() {
-    this.item = JSON.parse(localStorage.getItem(this.#localStorageKey)) || [];
+    this.items = JSON.parse(localStorage.getItem(this.#localStorageKey)) || [];
   }
 
   insertIntoInventory(data) {
-    this.item.push(data);
+    this.items.push(data);
     this.saveToLocalStorage();
   }
 

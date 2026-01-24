@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=BBH+Bartle&family=GFS+Didot&display=swap" rel="stylesheet">
 </head>
 <body class="flex bg-background min-h-screen flex-col">
- <nav class="min-[640px]:hidden bg-background flex items-center justify-between px-5 py-2 border-b ">
+ <nav class="min-[1024px]:hidden bg-background flex items-center justify-between px-5 py-2 border-b ">
     <a href="/index.html" class="block w-15 h-11 shrink-0">
       <img
         src="/resources/58063b20-f758-443a-9c29-fe428a362c26.png"
@@ -37,7 +37,7 @@
     </div>
   </nav>
 
-  <div class="min-[640px]:hidden burger-menu-container fixed z-1000 bg-background hidden inset-0">
+  <div class="min-[1024px]:hidden burger-menu-container fixed z-1000 bg-background hidden inset-0">
     <div class="flex flex-col p-4 gap-5 border-b border-gray-200">
       <button class="close-burger-menu self-end font-bold">X</button>
     </div>
@@ -56,7 +56,7 @@
     </section>
   </div>
  
-  <nav class="max-[640px]:hidden bg-background flex items-center justify-between p-5 border-b mb-2">
+  <nav class="max-[1024px]:hidden bg-background flex items-center justify-between p-5 border-b mb-2">
     <div class=" font-light text-lg">
       <div class="text-header flex items-center gap-5">
         <a href="/index.html">
@@ -91,8 +91,8 @@
   <section class="header-cart-container">
   </section>
 
-  <main class="main-content grow grid grid-cols-1 sm:grid-cols-[250px_1fr] gap-2 m-5">
-    <aside class="max-[640px]:hidden flex flex-col gap-2 h-full tracking-widest text-xl cursor-pointer">
+  <main class="main-content grow grid grid-cols-1 lg:grid-cols-[250px_1fr] gap-2 m-5">
+    <aside class="max-[1024px]:hidden flex flex-col gap-2 h-full tracking-widest text-xl cursor-pointer">
       <p class="">DASHBOARD</p>
       <a class="underline font-bold" href="/html/admin/inventory/inventory.html">INVENTORY</a>
       <a class="" href="/html/admin/products/products.html">PRODUCTS</a>
@@ -126,7 +126,7 @@
             <tr class="text-left">
               <th class="border-b border-l border-t border-gray-300 px-4 py-2">Product SKU</th>
               <th class="border-b border-t border-gray-300 px-4 py-2">Product Name</th>
-              <th class="border-b border-t border-gray-300 px-4 py-2">Attribute</th>
+              <th class="border-b border-t border-gray-300 px-4 py-2">Attributes</th>
               <th class="border-b border-t border-gray-300 px-4 py-2">Quantity</th>
               <th class="border-b border-t border-gray-300 px-4 py-2">Threshold</th>
               <th class="border-b border-t border-r border-gray-300 px-4 py-2">Action</th>

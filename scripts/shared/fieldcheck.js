@@ -1,6 +1,7 @@
 export function fieldChecker(data) {
   let result = 0;
   data.forEach((field, index) => {
+    
     const errorElem = document.querySelector(`.js-field-${index}`);
     if(!field || field.trim() === '' || field === '0') {
       result++;

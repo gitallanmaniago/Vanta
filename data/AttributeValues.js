@@ -62,4 +62,9 @@ export class AttributeValues {
     return tempValue = this.attributeValues.filter(values => Number(categoryId) === Number(values.categoryId));
   }
 
+  getAttributeValues(AttributeValuesId) {
+    let tempValue;
+    return tempValue = this.attributeValues.filter(values => Number(AttributeValuesId) === Number(values.id));
+  }
+
 }

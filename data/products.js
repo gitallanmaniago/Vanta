@@ -13,32 +13,10 @@ export class Products {
   }
 
   loadFromLocalStorage() {
-     this.products = JSON.parse(localStorage.getItem(this.#localStorageKey)) || [{
-        id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
-        image: "resources/product-image/BOX-TEE-BLACK-FRONT.webp",
-        name: "Box Tee Black Front",
-        basePriceCents: 1090,
-        description: 'Sample'
-      }, {
-        id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c7",
-        image: "resources/product-image/BOX-TEE-CHALK-FRONT.webp",
-        name: "Box Tee Chalk Front",
-        rating: {
-          stars: 4.5,
-          count: 87
-        },
-        basePriceCents: 1090,
-        keywords: [
-          "socks",
-          "sports",
-          "apparel"
-        ],
-        quantity: 20,
-      }];
+     this.products = JSON.parse(localStorage.getItem(this.#localStorageKey)) || [];
   }
 
   insertProducts(data) {
-    console.log(data);
     this.products.push(data);
     this.saveToLocalStorage();
   }
@@ -62,7 +40,7 @@ export class Products {
   getMatchingItem(itemId) {
     let tempValue = [];
     this.products.forEach((value) => {
-      if(value.id === itemId) {
+      if(Number(value.id) === Number(itemId)) {
         tempValue = value;
       }
     });
