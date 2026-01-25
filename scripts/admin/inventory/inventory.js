@@ -40,6 +40,7 @@ function addItem() {
     }
     inventory.insertIntoInventory(data);
     toast('Item added');
+    renderItems(inventory.searchFromInventory(''));
   }
 }
 
@@ -54,10 +55,10 @@ function getDropdownValues(){
   return tempValue;
 }
 
-function renderItems() {
+function renderItems(data) {
   const container = document.querySelector('.inventory-container');
   let containerHTML = '';
-  inventory.items.forEach((item) => {
+  data.forEach((item) => {
     containerHTML += `
       <tr class="hover:bg-gray-50">
         <td class="border-b border-l border-gray-300 px-4 py-2">${item.sku}</td>
@@ -79,7 +80,7 @@ function renderItems() {
   initDelete();
 }
 
-renderItems();
+renderItems(inventory.searchFromInventory(''));
 
 function displayAttribute(data){
   let tempValue = [];
@@ -111,8 +112,17 @@ function deleteItem(inventoryId) {
     const result = inventory.deleteFromInventory(inventoryId);
     if(result) {
       toast('Deleted ');
-      renderItems();
+      renderItems(inventory.searchFromInventory(''));
     }
   });
 }
 
+function searchInventory() {
+  const searchElem = document.querySelector('.js-search-item');
+  searchElem.addEventListener('input', () => {
+    const searchWord = searchElem.value;
+    renderItems(inventory.searchFromInventory(searchWord));
+  });
+}
+
+searchInventory();

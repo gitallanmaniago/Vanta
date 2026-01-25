@@ -1,3 +1,5 @@
+import { Products } from "./Products";
+const product = new Products('Products');
 export class Inventory {
   items;
   #localStorageKey;
@@ -31,6 +33,22 @@ export class Inventory {
     });
     this.saveToLocalStorage();
     return result;
+  }
+
+  searchFromInventory(searchWord) {
+    let tempValue = [];
+
+    if(!searchWord)
+      return this.items;
+
+    if(searchWord){
+      this.items.forEach((item) => {
+        const itemName = product.getMatchingItem(item.productId)?.name.toLowerCase();
+        if(itemName.includes(searchWord.toLowerCase())) 
+          tempValue.push(item);
+      });
+    }
+    return tempValue;
   }
 
 }
