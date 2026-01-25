@@ -6,37 +6,113 @@
     <title>Vanta</title>
   </head>
   <body class="bg-background min-h-screen flex flex-col">
-    <nav class="bg-background flex items-center justify-between p-5 border-b mb-2">
-      <div class="flex items-center justify-center gap-y-7 font-light text-lg">
-        <div class="text-header">
+    <nav class="min-[640px]:hidden bg-background flex items-center justify-between px-5 py-2 border-b ">
+      <a href="/index.html" class="block w-15 h-11 shrink-0">
+        <img
+          src="/resources/58063b20-f758-443a-9c29-fe428a362c26.png"
+          alt=""
+          class="w-full h-full object-contain"
+        />
+      </a>
+      <div class="flex gap-5 items-center justify-center">
+        <button class="size-4 hover:opacity-40">
+          <img src="/resources/search.png" alt="">
+        </button>
+        <button class="js-login-header size-4  hover:opacity-40">
+          <img class="" src="/resources/user.png" alt="">
+        </button>
+        <button class="size-5 hover:opacity-40">
+          <img src="/resources/heart.png" alt="">
+        </button>
+        <button class="js-cart-header relative size-5 ">
+          <img class= "hover:opacity-40" src="/resources/parcel.png" alt="">
+          <p class="js-header-cart-quantity hidden relative text-xs bg-red-600 p-0.5 rounded-2xl text-white -top-7.5 left-1.5">0</p> 
+        </button>
+        <button class="js-burger-menu size-6 mt-1">
+          <img class= "hover:opacity-40" src="/resources/list.png" alt="">
+        </button>
+      </div>
+    </nav>
+
+    <div class="min-[640px]:hidden burger-menu-container fixed z-1000 bg-background hidden inset-0">
+      <div class="flex flex-col p-4 gap-5 border-b border-gray-200">
+        <button class="close-burger-menu self-end font-bold">X</button>
+        <header class="font-light flex justify-between">
+          <button class="">WOMEN</button>
+          <button class="">MEN</button>
+          <button class="">KIDS</button>
+        </header>
+      </div>
+      <section class="flex flex-col p-4">
+        <menu class="font-normal flex gap-1 flex-col">
+          <ul>CLOTHING</ul>
+          <ul>ACCESSORIES</ul>
+          <ul>SWIMWEAR AND BEACHWEAR</ul>
+          <ul>SHOES</ul>
+          <ul>SPORT</ul>
+        </menu>
+      </section>
+      <section class="overflow-x-auto no-scrollbar">
+        <div class="flex min-w-screen">
+          <div class="shrink-0 w-30 flex flex-col items-center">
+            <img class="h-50 w-full object-cover" src="/resources/product-image/BOX-TEE-BLACK-FRONT.webp" alt="">
+            <p>DESCRIPTION</p>
+          </div>
+          <div class="shrink-0 w-30">
+            <img class="h-50 w-full object-cover" src="/resources/product-image/BOX-TEE-BLACK-FRONT.webp" alt="">
+            <p>DESCRIPTION</p>
+          </div>
+          <div class="shrink-0 w-30">
+            <img class="h-50 w-full object-cover" src="/resources/product-image/BOX-TEE-BLACK-FRONT.webp" alt="">
+            <p>DESCRIPTION</p>
+          </div>
+          <div class="shrink-0 w-30">
+            <img class="h-50 w-full object-cover" src="/resources/product-image/BOX-TEE-BLACK-FRONT.webp" alt="">
+            <p>DESCRIPTION</p>
+          </div>
+        </div>
+      </section>
+    </div>
+ 
+  <nav class="max-[640px]:hidden bg-background flex items-center justify-between p-5 border-b mb-2">
+    <div class=" font-light text-lg">
+      <div class="text-header flex items-center gap-5">
+        <a href="/index.html">
+          <img class="h-10 object-contain" src="/resources/58063b20-f758-443a-9c29-fe428a362c26.png" alt="">
+        </a>
+        <div class="flex gap-2">
           <a class="hover:text-black hover:font-bold" href="/html/man.html">MAN</a>
           <a class="hover:text-black hover:font-bold" href="">WOMAN</a>
           <a class="hover:text-black hover:font-bold" href="">KIDS</a>
         </div>
       </div>
-      <div class="flex gap-7 items-center justify-center">
-        <button class="size-5 hover:opacity-40">
-          <img src="resources/search.png" alt="">
-        </button>
-        <button class="size-5  hover:opacity-40">
-          <img class="" src="resources/user.png" alt="">
-        </button>
-        <button class="size-6 hover:opacity-40">
-          <img src="resources/heart.png" alt="">
-        </button>
-        <button class="size-6 hover:opacity-40">
-          <img src="resources/parcel.png" alt="">
-        </button>
-        <button onclick ="document.documentElement.classList.toggle('dark')" class="size-6">
-          <img src="resources/moon.png" alt="">
-        </button>
-      </div>
-    </nav>
-    <main class="grow flex items-center p-5 border-b">
-      <div class="">
-        <p class="text-5xl text-rose-500 font-bold">UP TO 50% OFF*</p>
-      </div>
-    </main>
+    </div>
+    <div class="flex gap-7 items-center justify-center">
+      <button class="size-5 hover:opacity-40">
+        <img src="/resources/search.png" alt="">
+      </button>
+      <button class="js-login-header size-5  hover:opacity-40">
+        <img class="" src="/resources/user.png" alt="">
+      </button>
+      <button class="size-6 hover:opacity-40">
+        <img src="/resources/heart.png" alt="">
+      </button>
+      <button class="js-cart-header relative size-6 ">
+        <img class= "hover:opacity-40" src="/resources/parcel.png" alt="">
+        <p class="js-header-cart-quantity hidden relative text-xs bg-red-600 p-0.5 rounded-2xl text-white -top-7.5 left-1.5">0</p> 
+      </button>
+      <button onclick ="document.documentElement.classList.toggle('dark')" class="size-6">
+        <img src="/resources/moon.png" alt="">
+      </button>
+    </div>
+  </nav>
+  <section class="header-cart-container">
+  </section>
+  <main class="grow flex items-center p-5 border-b ">
+    <div class="">
+      <p class="text-5xl text-rose-500 font-bold">UP TO 50% OFF*</p>
+    </div>
+  </main>
     <footer class="bg-background text-primary font-bold text-sm p-5">
       <p>
         SALE
@@ -47,5 +123,6 @@
       <p class="font-light text-sm">&copy; 2025 Vanta. All rights reserved</p>
     </footer>
     <script type="module" src="/src/main.js"></script>
+    <script type="module" src="/scripts/shared/header.js"></script>
   </body>
 </html>

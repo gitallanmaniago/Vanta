@@ -33,6 +33,7 @@ function addItem() {
     let data = {
       inventoryId,
       sku,
+      image: '/resources/product-image/BOX-TEE-BLACK-FRONT.webp',
       productId,
       attributes: dropdownValue,
       quantity,
