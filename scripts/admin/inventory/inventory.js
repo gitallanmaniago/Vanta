@@ -1,5 +1,5 @@
 import { Inventory } from "../../../data/Inventory.js";
-import { renderInventoryDialog, toast } from "../shared/admin-modal.js";
+import { deleteDialog, renderInventoryDialog, toast } from "../shared/admin-modal.js";
 import { fieldChecker } from "../../shared/fieldcheck.js";
 import { Attributes } from "../../../data/Attributes.js";
 import { Products } from "../../../data/Products.js";
@@ -66,7 +66,7 @@ function renderItems() {
         <td class="text-center border-b border-gray-300 px-4 py-2">${item?.quantity ?? ''}</td>
         <td class="text-center border-b border-gray-300 px-4 py-2">${item?.threshold ?? ''}</td>
         <td class="border-b border-r border-gray-300 px-4 py-2 ">
-          <button class="js-delete-category cursor-pointer" data-category-id=${item.id}>
+          <button class="js-delete-item cursor-pointer" data-item-id=${item.inventoryId}>
             Delete
           </button>
         </td>
@@ -75,6 +75,8 @@ function renderItems() {
   });
 
   container.innerHTML = containerHTML;
+
+  initDelete();
 }
 
 renderItems();
@@ -90,5 +92,27 @@ function displayAttribute(data){
   const attributeValue = tempValue.map(obj => obj.attributeValue);
 
   return attributeValue;
+}
+
+function initDelete() {
+  const deleteElem = document.querySelectorAll('.js-delete-item');
+  deleteElem.forEach((deleteButton) => {
+    deleteButton.addEventListener('click', () => {
+      const inventoryId = deleteButton.dataset.itemId;
+      deleteDialog();
+      deleteItem(inventoryId);
+    });
+  });
+}
+
+function deleteItem(inventoryId) {
+  const deleteElem = document.querySelector('.js-delete-product');
+  deleteElem.addEventListener('click', () => {
+    const result = inventory.deleteFromInventory(inventoryId);
+    if(result) {
+      toast('Deleted ');
+      renderItems();
+    }
+  });
 }
 

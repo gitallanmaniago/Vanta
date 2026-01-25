@@ -20,4 +20,17 @@ export class Inventory {
     this.saveToLocalStorage();
   }
 
+  deleteFromInventory(inventoryId){
+    let result = false;
+    
+    this.items.forEach((item, index) => {
+      if(Number(item.inventoryId) === Number(inventoryId)){
+        this.items.splice(index, 1);
+        result = true;
+      }
+    });
+    this.saveToLocalStorage();
+    return result;
+  }
+
 }
