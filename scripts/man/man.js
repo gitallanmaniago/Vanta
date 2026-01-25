@@ -21,7 +21,7 @@ function renderProduct() {
           <img src="${item.image}" class="w-full h-full object-cover"/>
         </div>
         <p class="font-semibold text-sm">${products.getMatchingItem(item.productId)?.name ?? ''}</p>
-        <p class="font-light text-sm">$${totalPrice.toFixed(2)} AUD</p>
+        <p class="font-light text-sm">$${products.displayPrice(totalPrice)} AUD</p>
 
         <button class="js-add-button  bg-background text-primary font-extralight text-sm px-3 py-1 rounded-md
           opacity-0 group-hover:opacity-100 translate-y-2

@@ -1,17 +1,24 @@
 import { Cart } from "../data/cart.js";
+import { Inventory } from "../data/Inventory.js";
 import { Products } from "../data/products.js";
 import { loadCartValue } from "./shared/header.js";
 import { renderDialog, showDialog } from "./shared/modal.js";
 
-const products = new Products();
+const products = new Products('Products');
+const inventory = new Inventory('Inventory');
 const cart = new Cart('Order');
 
 let quantity = 0;
 let quantityElem;
 const url = new URL(window.location.href);
-export const itemId = url.searchParams.get('id');
-const viewedItem = products.getMatchingItem(itemId);
-document.querySelector('.title').innerText = viewedItem.name
+export const inventoryId = url.searchParams.get('id');
+const item = inventory.getMatchingItemInInventory(inventoryId);
+const product = products.getMatchingItem(item.productId);
+const variants = inventory.getAllVariant(item.productId);
+document.querySelector('.title').innerText = product.name;
+const price = product.price;
+const markup = product.markup;
+const totalPrice = Number(price) + Number(markup);
 
 let viewHTML = '';
 const viewElem = document.querySelector('.view-main-content');
@@ -20,12 +27,12 @@ function generateHTML() {
   loadCartValue();
   viewHTML = `
     <div>
-      <img class = "w-auto object-contain" src="/${viewedItem.image}" alt="">
+      <img class = "w-auto object-contain" src="${item.image}" alt="">
     </div>
     <div class="text-primary flex flex-col gap-5">
       <section class="flex flex-wrap justify-between items-center">
-        <p class="font-extrabold text-4xl">${viewedItem.name}</p>
-        <p class="font-extralight text-2xl">${products.displayPrice(viewedItem.basePriceCents)} AUD</p>
+        <p class="font-extrabold text-4xl">${product.name}</p>
+        <p class="font-extralight text-2xl">${products.displayPrice(totalPrice)} AUD</p>
       </section>
       <section class="flex item-center gap-2 mb-5">
         <p class="bg-stone-400 rounded-md px-2 py-1 text-white text-xs font-light">New Arrival</p>
@@ -33,12 +40,8 @@ function generateHTML() {
       </section>
       <section class="flex flex-col gap-3">
         <p class="text-sm font-light">Select Variant: </p>
-        <div class="flex flex-wrap gap-2 ">
-            <img class="size-15 rounded-md border border-gray-200" src="/resources/product-image/BOX-TEE-BLACK-FRONT.webp" alt="">
-            <img class="size-15 rounded-md border border-gray-200" src="/resources/product-image/BOX-TEE-BLACK-FRONT.webp" alt="">
-            <img class="size-15 rounded-md border border-gray-200" src="/resources/product-image/BOX-TEE-BLACK-FRONT.webp" alt="">
-            <img class="size-15 rounded-md border border-gray-200" src="/resources/product-image/BOX-TEE-BLACK-FRONT.webp" alt="">
-            <img class="size-15 rounded-md border border-gray-200" src="/resources/product-image/BOX-TEE-BLACK-FRONT.webp" alt="">
+        <div class="js-variant-container flex flex-wrap gap-2 ">
+           
         </div>
       </section>
       <section>
@@ -93,6 +96,7 @@ function generateHTML() {
   viewElem.innerHTML = viewHTML;
   initQuantityControl();
   addToCartControl();
+  displayVariant();
 }
 
 generateHTML();
@@ -121,4 +125,19 @@ function addToCartControl() {
     loadCartValue();
     renderDialog();   
   });
+}
+
+function displayVariant() {
+  const container = document.querySelector('.js-variant-container');
+  let containerHTML = '';
+
+  variants.forEach((variant) => {
+    containerHTML += `
+      <div class ="size-15  border border-gray-200">
+        <img class="w-full h-full" src="${variant.image}" alt="">
+      </div>
+    `;
+  });
+
+  container.innerHTML = containerHTML;
 }

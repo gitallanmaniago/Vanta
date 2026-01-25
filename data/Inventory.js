@@ -51,4 +51,24 @@ export class Inventory {
     return tempValue;
   }
 
+  getMatchingItemInInventory(inventoryId) {
+    let tempValue = [];
+    this.items.forEach((item) => {
+      if(Number(item.inventoryId) === Number(inventoryId)) {
+        tempValue = item;
+      }
+    });
+    return tempValue;
+  }
+
+  getAllVariant(productId) {
+    let tempValue = [];
+    this.items.forEach((item) => {
+      if(Number(item.productId) === Number(productId)) {
+        tempValue.push(item);
+      }
+    });
+    return tempValue;
+  }
+
 }
