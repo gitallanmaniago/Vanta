@@ -33,9 +33,10 @@ function addItem() {
     let data = {
       inventoryId,
       sku,
-      image: '/resources/product-image/BOX-TEE-BLACK-FRONT.webp',
+      image: '/resources/product-image/BOX-TEE-CHALK-FRONT.webp',
       productId,
       attributes: dropdownValue,
+      collectionId: 0,
       quantity,
       threshold
     }
@@ -60,6 +61,7 @@ function renderItems(data) {
   const container = document.querySelector('.inventory-container');
   let containerHTML = '';
   data.forEach((item) => {
+    console.log(item);
     containerHTML += `
       <tr class="hover:bg-gray-50">
         <td class="border-b border-l border-gray-300 px-4 py-2">${item.sku}</td>

@@ -61,7 +61,7 @@ export class Inventory {
     return tempValue;
   }
 
-  getAllVariant(productId) {
+  getAllItem(productId, inventoryId) {
     let tempValue = [];
     this.items.forEach((item) => {
       if(Number(item.productId) === Number(productId)) {
@@ -69,6 +69,10 @@ export class Inventory {
       }
     });
     return tempValue;
+  }
+
+  getAllVariants(collectionId){
+    return this.items.filter(v => Number(v.collectionId) === Number(collectionId));
   }
 
 }

@@ -1,3 +1,4 @@
+import { AttributeValues } from "../data/AttributeValues.js";
 import { Cart } from "../data/cart.js";
 import { Inventory } from "../data/Inventory.js";
 import { Products } from "../data/products.js";
@@ -7,17 +8,20 @@ import { renderDialog, showDialog } from "./shared/modal.js";
 const products = new Products('Products');
 const inventory = new Inventory('Inventory');
 const cart = new Cart('Order');
+const attributeValues = new AttributeValues('AttributeValue');
 
 let quantity = 0;
 let quantityElem;
 const url = new URL(window.location.href);
 export const inventoryId = url.searchParams.get('id');
-const item = inventory.getMatchingItemInInventory(inventoryId);
-const product = products.getMatchingItem(item.productId);
-const variants = inventory.getAllVariant(item.productId);
+const itemInventory = inventory.getMatchingItemInInventory(inventoryId);
+const product = products.getMatchingItem(itemInventory.productId);
+const allProducts = inventory.getAllItem(itemInventory.productId);
+const variants = inventory.getAllVariants(itemInventory.collectionId);
+
 document.querySelector('.title').innerText = product.name;
-const price = product.price;
-const markup = product.markup;
+const price = itemInventory.price;
+const markup = itemInventory.markup;
 const totalPrice = Number(price) + Number(markup);
 
 let viewHTML = '';
@@ -27,7 +31,7 @@ function generateHTML() {
   loadCartValue();
   viewHTML = `
     <div>
-      <img class = "w-auto object-contain" src="${item.image}" alt="">
+      <img class = "w-auto object-contain" src="${itemInventory.image}" alt="">
     </div>
     <div class="text-primary flex flex-col gap-5">
       <section class="flex flex-wrap justify-between items-center">
@@ -49,22 +53,8 @@ function generateHTML() {
       </section>
       <section>
         <p class="mb-2 text-xs font-extralight tracking-tight">select size:</p>
-        <div class="flex flex-wrap gap-0.5 mb-1">
-          <button class="border border-gray-400 px-3 py-1">
-            S
-          </button>
-          <button class="border border-gray-400 px-3 py-1">
-            M
-          </button>
-          <button class="border border-gray-400 px-3 py-1">
-            L
-          </button>
-          <button class="border border-gray-400 px-3 py-1">
-            XL
-          </button>
-          <button class="border border-gray-400 px-3 py-1">
-            XXL
-          </button>
+        <div class="flex js-size-container flex-wrap gap-0.5 mb-1">
+          
         </div>
         <p class="mb-2 text-xs font-bold underline ">size guide</p>
       </section>
@@ -133,11 +123,53 @@ function displayVariant() {
 
   variants.forEach((variant) => {
     containerHTML += `
-      <div class ="size-15  border border-gray-200">
+      <div class ="js-view-variant size-15  border ${border(variant.inventoryId)}" data-inventory-Id = ${variant.inventoryId}>
         <img class="w-full h-full" src="${variant.image}" alt="">
       </div>
     `;
   });
 
   container.innerHTML = containerHTML;
+  viewVariant();
+}
+
+function border(id){
+  let text = 'border-gray-200';
+  if(Number(id) === Number(itemInventory.inventoryId))
+    text = 'border-black-200';
+
+  return text;
+}
+
+function viewVariant() {
+  const viewElem = document.querySelectorAll('.js-view-variant');
+  viewElem.forEach((viewButton) => {
+    viewButton.addEventListener('click', () => {
+      const inventoryId = viewButton.dataset.inventoryId;
+      window.location.href = `/html/view-item/view-item.html?id=${inventoryId}`;
+    });
+  });
+}
+
+function displaySizes() {
+  const container = document.querySelector('.js-size-container');
+  let containerHTML = '';
+
+  allProducts.forEach((variant) => {
+    containerHTML += `
+      <button class="js-size border border-gray-200 px-3 py-1">
+        ${attributeValues.getAttributeValues(variant.attributes.sizeId)[0]?.attributeValue ?? ''}
+      </button>
+    `;
+  });
+
+  container.innerHTML = containerHTML;
+  initSizeButtons();
+}
+
+displaySizes();
+
+function initSizeButtons() {
+  const elem = document.querySelectorAll('.js-size');
+  
 }

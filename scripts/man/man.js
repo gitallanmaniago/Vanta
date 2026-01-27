@@ -15,6 +15,7 @@ function renderProduct() {
     const price = products.getMatchingItem(item.productId)?.price;
     const markup = products.getMatchingItem(item.productId)?.markup;
     const totalPrice = Number(price) + Number(markup);
+    console.log(item)
     productHTML += `
       <div class=" relative group grid gap-2 text-primary text-center" >
         <div class="js-view-item  rounded-lg w-full aspect-4/4 overflow-hidden cursor-pointer" data-item-Id = ${item.inventoryId} >
